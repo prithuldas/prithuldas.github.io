@@ -8,9 +8,9 @@
   <title>Prithul Das</title>
   <style>
     :root {
-      --bg: #1a1f2b; /* ashy blue-dark */
-      --fg: #e0e6ed;
-      --accent: #5eead4;
+      --bg: #0f172a; /* dark slate */
+      --fg: #f8fafc;
+      --accent: #38bdf8; /* sky blue */
       --font: 'Segoe UI', sans-serif;
     }
 
@@ -30,7 +30,7 @@
 
     header {
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
     }
 
     h1 {
@@ -41,13 +41,35 @@
     h2 {
       font-size: 1.5rem;
       margin-top: 2rem;
-      color: #93c5fd;
+      color: var(--accent);
     }
 
     p {
       max-width: 700px;
       margin: 1rem auto;
       text-align: center;
+    }
+
+    nav {
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    nav a {
+      display: inline-block;
+      margin: 0.25rem 0.5rem;
+      color: var(--fg);
+      background-color: #1e293b;
+      border: 1px solid var(--accent);
+      padding: 0.4rem 1rem;
+      border-radius: 0.375rem;
+      text-decoration: none;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: var(--accent);
+      color: #0f172a;
     }
 
     .btn {
@@ -62,7 +84,7 @@
     }
 
     .btn:hover {
-      background: #2dd4bf;
+      background: #0ea5e9;
     }
 
     footer {
@@ -78,7 +100,13 @@
   <header>
     <h1>Prithul Das</h1>
     <p>Mechanical Engineering Student | Aspiring Aerospace Engineer | CFD & Thermofluids Enthusiast</p>
-    <a href="#projects" class="btn">See My Work</a>
+    <nav>
+      <a href="#about">About Me</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#blogs">Blogs</a>
+      <a href="#contact">Contact</a>
+    </nav>
   </header>
 
   <section id="about">
@@ -97,6 +125,20 @@
       • Building a low-cost wind tunnel<br />
       • Learning Manim and Blender for technical visuals
     </p>
+  </section>
+
+  <section id="education">
+    <h2>Education</h2>
+    <p>
+      B.Sc. in Mechanical Engineering<br />
+      Ahsanullah University of Science and Technology (AUST)<br />
+      Third-year undergraduate
+    </p>
+  </section>
+
+  <section id="blogs">
+    <h2>Blogs</h2>
+    <p>Coming soon... I'll be writing about CFD, aerospace topics, and technical reflections here.</p>
   </section>
 
   <section id="contact">
