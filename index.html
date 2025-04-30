@@ -9,9 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=CMU+Serif&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #1a202c; /* dark ash */
-      --fg: #ffffff; /* white font */
-      --accent: #60a5fa; /* soft blue */
+      --bg: #1b1f23;
+      --fg: #f3f4f6;
+      --accent: #60a5fa;
       --font: 'CMU Serif', serif;
     }
 
@@ -21,12 +21,29 @@
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       background-color: var(--bg);
       color: var(--fg);
       font-family: var(--font);
       line-height: 1.6;
       padding: 2rem;
+      position: relative;
+      animation: fadeIn 0.8s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     header {
@@ -73,6 +90,11 @@
       color: var(--bg);
     }
 
+    section {
+      padding: 2rem 0;
+      border-top: 1px solid #2a2e33;
+    }
+
     .btn {
       display: inline-block;
       background: var(--accent);
@@ -94,10 +116,45 @@
       margin-top: 4rem;
       opacity: 0.6;
     }
+
+    .blinker {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 8px;
+      height: 8px;
+      background-color: var(--fg);
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .project-list {
+      list-style: none;
+      max-width: 700px;
+      margin: 1rem auto;
+      padding-left: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .project-list li::before {
+      content: "\2022";
+      color: var(--accent);
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+    }
   </style>
 </head>
 
 <body>
+  <div class="blinker"></div>
   <header>
     <h1>Prithul Das</h1>
     <p>Mechanical Engineering Student | Aspiring Aerospace Engineer | CFD & Thermofluids Enthusiast</p>
@@ -119,13 +176,15 @@
 
   <section id="projects">
     <h2>Projects & Interests</h2>
-    <p>
-      • Designed a re-entry vehicle TPS with transpirational cooling<br />
-      • Simulated supersonic flows using Ansys<br />
-      • Exploring open-source CFD tools like OpenFOAM<br />
-      • Building a low-cost wind tunnel<br />
-      • Learning Manim and Blender for technical visuals
-    </p>
+    <ul class="project-list">
+      <li>Designed a re-entry vehicle TPS with transpirational cooling</li>
+      <li>Simulated supersonic flows using Ansys</li>
+      <li>Exploring open-source CFD tools like OpenFOAM</li>
+      <li>Building a low-cost wind tunnel</li>
+      <li>Learning Manim and Blender for technical visuals</li>
+      <li>Enhancing sand battery performance for sustainable energy</li>
+      <li>Using LaTeX and TikZ to create scientific reports and lecture notes</li>
+    </ul>
   </section>
 
   <section id="education">
