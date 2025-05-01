@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prithul Das</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     :root {
       --bg: #262c31;
@@ -23,26 +24,60 @@
       overflow-x: hidden;
       position: relative;
     }
-    /* Starfield animation */
-    body::before {
+    .stars-layer1, .stars-layer2, .stars-layer3 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .stars-layer1::before,
+    .stars-layer2::before,
+    .stars-layer3::before {
       content: '';
       position: absolute;
-      top: 0; left: 0;
-      width: 200%; height: 200%;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
       background: transparent;
+    }
+    .stars-layer1::before {
       box-shadow:
-        /* random stars */
-        10vw 20vh #fff,
-        30vw 40vh #fff,
-        70vw 60vh #fff,
-        90vw 10vh #fff,
-        50vw 80vh #fff;
-      animation: drift 60s linear infinite;
-      z-index: 0;
+        10vw 20vh 1px #fff,
+        30vw 40vh 1px #fff,
+        50vw 60vh 1px #fff,
+        70vw 80vh 1px #fff,
+        90vw 10vh 1px #fff;
+      animation: drift 120s linear infinite, twinkle 5s ease-in-out infinite;
+    }
+    .stars-layer2::before {
+      box-shadow:
+        15vw 25vh 2px #fff,
+        35vw 45vh 2px #fff,
+        55vw 65vh 2px #fff,
+        75vw 85vh 2px #fff,
+        95vw 15vh 2px #fff;
+      animation: drift 60s linear infinite, twinkle 4s ease-in-out infinite;
+    }
+    .stars-layer3::before {
+      box-shadow:
+        20vw 30vh 3px #fff,
+        40vw 50vh 3px #fff,
+        60vw 70vh 3px #fff,
+        80vw 90vh 3px #fff,
+        100vw 20vh 3px #fff;
+      animation: drift 30s linear infinite, twinkle 3s ease-in-out infinite;
     }
     @keyframes drift {
       from { transform: translate(0,0); }
       to { transform: translate(-50%, -50%); }
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
     }
     header {
       position: relative;
@@ -69,6 +104,7 @@
     h1 {
       font-size: 2.5rem;
       margin-bottom: 0.5rem;
+      font-family: 'Orbitron', sans-serif;
     }
     .subtitle {
       font-size: 1rem;
@@ -101,11 +137,27 @@
       border-radius: 0.25rem;
       text-decoration: none;
       transition: background 0.3s, transform 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--highlight);
+      transition: width 0.3s, left 0.3s;
     }
     nav a:hover {
       background: var(--fg);
       color: var(--bg);
-      transform: translateY(-2px);
+      transform: translateY(-5px);
+    }
+    nav a:hover::after {
+      width: 100%;
+      left: 0;
     }
     main {
       position: relative;
@@ -120,6 +172,7 @@
       font-size: 1.8rem;
       margin-bottom: 1rem;
       position: relative;
+      font-family: 'Orbitron', sans-serif;
     }
     h2::after {
       content: '';
@@ -143,6 +196,7 @@
       margin-bottom: 0.5rem;
       font-size: 1.3rem;
       color: var(--fg);
+      font-family: 'Orbitron', sans-serif;
     }
     .project-item .description {
       font-size: 0.95rem;
@@ -158,11 +212,23 @@
       position: relative;
       z-index: 1;
     }
+    @media (max-width: 768px) {
+      .profile-img {
+        width: 150px;
+        height: 150px;
+      }
+      .intro {
+        max-width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="stars-layer1"></div>
+  <div class="stars-layer2"></div>
+  <div class="stars-layer3"></div>
   <header>
-    <div class="morse">.- . .-. --- / .--. .-. .. - .... ..- .- .-..</div>
+    <div class="morse">.- . .-. --- / .--. .-. .. - .... ..- .-..</div>
     <img src="1000931297.jpg" alt="Prithul Das" class="profile-img">
     <div class="intro">
       <h1>Prithul Das</h1>
@@ -207,11 +273,11 @@
     </section>
     <section id="contact">
       <h2>Contact</h2>
-      <p>Email: <a href="mailto:youremail@example.com" style="color: var(--highlight)">youremail@example.com</a></p>
-      <p>GitHub: <a href="https://github.com/prithuldas" target="_blank" style="color: var(--highlight)">github.com/prithuldas</a></p>
-      <p>LinkedIn: <a href="https://linkedin.com/in/prithuldas" target="_blank" style="color: var(--highlight)">linkedin.com/in/prithuldas</a></p>
+      <p>Email: <a href="mailto:prithul@example.com" style="color: var(--highlight)">prithul@example.com</a></p>
+      <p>GitHub: <a href="https://github.com/prithuldas" target="_blank"><i class="fab fa-github"></i> github.com/prithuldas</a></p>
+      <p>LinkedIn: <a href="https://linkedin.com/in/prithuldas" target="_blank"><i class="fab fa-linkedin"></i> linkedin.com/in/prithuldas</a></p>
     </section>
   </main>
-  <footer>&copy; 2025 Prithul Das</footer>
+  <footer>© 2023 Prithul Das</footer>
 </body>
 </html>
