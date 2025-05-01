@@ -12,16 +12,11 @@
       --accent: #fdfcfd;
       --highlight: #71541e;
       --font-main: 'Inter', sans-serif;
-      --star-color: #fff;
-      --grid-color: rgba(253,252,253,0.03);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       background-color: var(--bg);
-      background-image:
-        repeating-linear-gradient(to right, var(--grid-color) 0, var(--grid-color) 1px, transparent 1px, transparent 20px),
-        repeating-linear-gradient(to bottom, var(--grid-color) 0, var(--grid-color) 1px, transparent 1px, transparent 20px);
       color: var(--fg);
       font-family: var(--font-main);
       min-height: 100vh;
@@ -36,11 +31,12 @@
       width: 200%; height: 200%;
       background: transparent;
       box-shadow:
-        10vw 20vh var(--star-color),
-        30vw 40vh var(--star-color),
-        70vw 60vh var(--star-color),
-        90vw 10vh var(--star-color),
-        50vw 80vh var(--star-color);
+        /* random stars */
+        10vw 20vh #fff,
+        30vw 40vh #fff,
+        70vw 60vh #fff,
+        90vw 10vh #fff,
+        50vw 80vh #fff;
       animation: drift 60s linear infinite;
       z-index: 0;
     }
@@ -57,7 +53,6 @@
       justify-content: center;
       gap: 2rem;
       flex-wrap: wrap;
-      animation: fadeIn 1s ease-in;
     }
     .profile-img {
       width: 200px;
@@ -70,6 +65,15 @@
     .intro {
       max-width: 500px;
       animation: slideIn 1s ease-out;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      font-size: 1rem;
+      color: var(--highlight);
+      margin-bottom: 1rem;
     }
     .morse {
       width: 100%;
@@ -127,13 +131,22 @@
       background: var(--highlight);
       border-radius: 2px;
     }
-    h3 { font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--accent); }
     p, li { line-height: 1.6; }
-    .project-list { list-style: none; padding-left: 0; }
-    .project-item { margin-bottom: 1.5rem; }
-    .project-item h3 { margin-bottom: 0.5rem; }
+    .project-list {
+      list-style: none;
+      padding-left: 0;
+    }
+    .project-item {
+      margin-bottom: 1.5rem;
+    }
+    .project-item h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+      color: var(--fg);
+    }
     .project-item .description {
       font-size: 0.95rem;
+      color: var(--fg);
       padding-left: 1rem;
       border-left: 2px solid var(--highlight);
     }
