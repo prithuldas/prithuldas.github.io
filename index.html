@@ -8,11 +8,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #1b1f23;
-      --fg: #e5e7eb;
-      --accent: #a0a0a0;
+      --bg: #262c31;
+      --fg: #fdfcfd;
+      --accent: #fdfcfd;
+      --highlight: #71541e;
       --font-main: 'Inter', sans-serif;
-      --line-color: rgba(229,231,235,0.02);
+      --line-color: rgba(253, 252, 253, 0.05);
     }
     * { margin:0; padding:0; box-sizing:border-box; }
     html { scroll-behavior: smooth; }
@@ -28,6 +29,7 @@
     }
     header { text-align:center; margin-bottom:2rem; }
     h1 { font-size:3rem; font-weight:600; color: var(--accent); }
+    .subtitle { font-size: 1.2rem; margin-top: 0.5rem; color: var(--fg); }
     nav {
       margin-top:1rem;
       display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;
@@ -56,11 +58,21 @@
       content:'▹'; color: var(--accent); position:absolute; left:-1.2rem;
     }
     footer { font-size:0.8rem; opacity:0.7; margin-top:auto; }
+    .morse {
+      width: 100%; text-align: center; font-family: monospace;
+      font-size: 0.9rem; color: var(--accent); margin-bottom: 0.5rem;
+      animation: blink 1s steps(2, start) infinite;
+    }
+    @keyframes blink {
+      50% { opacity: 0.4; }
+    }
   </style>
 </head>
 <body>
   <header>
+    <div class="morse">.- . .-. --- / .--. .-. .. - .... ..- .- .-..</div>
     <h1>Prithul Das</h1>
+    <div class="subtitle">Mechanical engineering undergrad | CFD enthusiast</div>
     <nav>
       <a href="#home">Home</a>
       <a href="#blogs">Blogs</a>
@@ -103,6 +115,7 @@
       <p>Email: <a href="mailto:youremail@example.com" style="color: var(--accent)">youremail@example.com</a></p>
       <p>GitHub: <a href="https://github.com/prithuldas" target="_blank" style="color: var(--accent)">github.com/prithuldas</a></p>
       <p>LinkedIn: <a href="https://linkedin.com/in/prithuldas" target="_blank" style="color: var(--accent)">linkedin.com/in/prithuldas</a></p>
+      <p>Twitter: <a href="https://twitter.com/prithuldas" target="_blank" style="color: var(--accent)">@prithuldas</a></p>
     </section>
   </main>
 
