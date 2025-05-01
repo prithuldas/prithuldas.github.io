@@ -184,25 +184,86 @@
       background: var(--highlight);
       border-radius: 2px;
     }
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      position: relative;
+      font-family: 'Orbitron', sans-serif;
+    }
+    h3::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--highlight);
+      border-radius: 2px;
+    }
+    h4 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-family: 'Inter', sans-serif;
+    }
     p, li { line-height: 1.6; }
-    .project-list {
+    .project-list, .education-list, .skills-list {
       list-style: none;
       padding-left: 0;
     }
-    .project-item {
+    .project-item, .list-item {
       margin-bottom: 1.5rem;
     }
-    .project-item h3 {
+    .project-item h4, .list-item h4 {
       margin-bottom: 0.5rem;
-      font-size: 1.3rem;
-      color: var(--fg);
-      font-family: 'Orbitron', sans-serif;
     }
-    .project-item .description {
+    .description {
       font-size: 0.95rem;
       color: var(--fg);
       padding-left: 1rem;
       border-left: 2px solid var(--highlight);
+    }
+    .skills-list li {
+      margin-bottom: 0.5rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    input, textarea {
+      padding: 0.5rem;
+      border: 1px solid var(--accent);
+      border-radius: 0.25rem;
+      background: var(--bg);
+      color: var(--fg);
+    }
+    textarea {
+      min-height: 100px;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      background: var(--highlight);
+      color: var(--fg);
+      border: none;
+      border-radius: 0.25rem;
+      cursor: pointer;
+      align-self: flex-start;
+    }
+    button:hover {
+      opacity: 0.8;
+    }
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .social-links a {
+      color: var(--fg);
+      text-decoration: none;
+    }
+    .social-links a:hover {
+      color: var(--highlight);
     }
     footer {
       text-align: center;
@@ -228,7 +289,7 @@
   <div class="stars-layer2"></div>
   <div class="stars-layer3"></div>
   <header>
-    <div class="morse">.- -.. / .- ... - .-. .- / .--. . .-. / .- ... .--. . .-. .-</div>
+    <div class="morse">.- . .-. --- / .--. .-. .. - .... ..- .</div>
     <img src="1000931297.jpg" alt="Prithul Das" class="profile-img">
     <div class="intro">
       <h1>Prithul Das</h1>
@@ -252,32 +313,67 @@
     </section>
     <section id="cv">
       <h2>Curriculum Vitae</h2>
+      <h3>Projects</h3>
       <ul class="project-list">
         <li class="project-item">
-          <h3>Re-entry vehicle TPS design</h3>
+          <h4>Re-entry vehicle TPS design</h4>
           <div class="description">Developed transpirational cooling systems for re-entry vehicles to reduce thermal loads at hypersonic velocities.</div>
         </li>
         <li class="project-item">
-          <h3>Supersonic CFD simulations</h3>
+          <h4>Supersonic CFD simulations</h4>
           <div class="description">Performed high-fidelity CFD analyses of shock waves and boundary layers using Ansys Fluent and OpenFOAM.</div>
         </li>
         <li class="project-item">
-          <h3>Wind tunnel prototype</h3>
+          <h4>Wind tunnel prototype</h4>
           <div class="description">Built a modular subsonic wind tunnel for experimental aerodynamic testing in educational settings.</div>
         </li>
       </ul>
       <h3>Education</h3>
       <ul class="education-list">
-        <li class="list-item">B.Sc. in Mechanical Engineering, AUST (3rd year)</li>
+        <li class="list-item">
+          <h4>B.Sc. in Mechanical Engineering</h4>
+          <p>AUST, Bangladesh (Expected Graduation: 2025)</p>
+          <p>GPA: 3.8/4.0</p>
+          <p>Relevant Coursework: Fluid Mechanics, Thermodynamics, Aerodynamics, Machine Learning</p>
+        </li>
+        <li class="list-item">
+          <h4>High School Diploma</h4>
+          <p>XYZ High School, Bangladesh (Graduated: 2021)</p>
+          <p>GPA: 4.0/4.0</p>
+          <p>Honors: National Science Olympiad Winner</p>
+        </li>
+      </ul>
+      <h3>Skills</h3>
+      <ul class="skills-list">
+        <li>Programming: Python, MATLAB, C++</li>
+        <li>Software: Ansys Fluent, OpenFOAM, SolidWorks, AutoCAD</li>
+        <li>Machine Learning: TensorFlow, PyTorch</li>
+        <li>Languages: English (fluent), Bengali (native)</li>
       </ul>
     </section>
     <section id="contact">
       <h2>Contact</h2>
-      <p>Email: <a href="mailto:prithul@example.com" style="color: var(--highlight)">prithul@example.com</a></p>
-      <p>GitHub: <a href="https://github.com/prithuldas" target="_blank"><i class="fab fa-github"></i> github.com/prithuldas</a></p>
-      <p>LinkedIn: <a href="https://linkedin.com/in/prithuldas" target="_blank"><i class="fab fa-linkedin"></i> linkedin.com/in/prithuldas</a></p>
+      <p>Feel free to reach out using the form below or connect with me.</p>
+      <!-- Replace 'your_form_id' with your actual Formspree form ID -->
+      <form action="https://formspree.io/f/mdkgarkj" method="POST">
+        <label for="email">Your Email:</label>
+        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" placeholder="Enter the subject" required>
+        
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" placeholder="Your message here" required></textarea>
+        
+        <input type="hidden" name="_next" value="/#contact">
+        <button type="submit">Send</button>
+      </form>
+      <div class="social-links">
+        <a href="https://github.com/prithuldas" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        <a href="https://linkedin.com/in/prithuldas" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+      </div>
     </section>
   </main>
-  <footer>© 2025 Prithul Das</footer>
+  <footer>© 2024 Prithul Das</footer>
 </body>
 </html>
