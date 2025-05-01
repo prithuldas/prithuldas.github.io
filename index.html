@@ -3,298 +3,83 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prithul Das</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <title>Prithul Das - Aerospace Engineer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    :root {
-      --bg: #262c31;
-      --fg: #fdfcfd;
-      --accent: #fdfcfd;
-      --highlight: #71541e;
-      --font-main: 'Inter', sans-serif;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
     body {
-      background-color: var(--bg);
-      color: var(--fg);
-      font-family: var(--font-main);
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
+      @apply bg-gradient-to-b from-[#0a0e2b] to-[#1a1e4a] text-gray-100 font-inter min-h-screen overflow-x-hidden relative;
     }
-    .stars-layer1, .stars-layer2, .stars-layer3 {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 0;
+    /* Canvas for Starfield */
+    #starfield {
+      @apply fixed top-0 left-0 w-full h-full z-[-1];
     }
-    .stars-layer1::before,
-    .stars-layer2::before,
-    .stars-layer3::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 200%;
-      height: 200%;
-      background: transparent;
+    /* CFD Particle Animation */
+    .particle {
+      @apply absolute w-1 h-1 bg-cyan-400 opacity-70 rounded-full;
+      animation: flow 4s linear infinite;
     }
-    .stars-layer1::before {
-      box-shadow:
-        10vw 20vh 1px #fff,
-        30vw 40vh 1px #fff,
-        50vw 60vh 1px #fff,
-        70vw 80vh 1px #fff,
-        90vw 10vh 1px #fff;
-      animation: drift 120s linear infinite, twinkle 5s ease-in-out infinite;
+    @keyframes flow {
+      0% { transform: translateX(0) translateY(0); opacity: 0.7; }
+      100% { transform: translateX(100vw) translateY(20vh); opacity: 0; }
     }
-    .stars-layer2::before {
-      box-shadow:
-        15vw 25vh 2px #fff,
-        35vw 45vh 2px #fff,
-        55vw 65vh 2px #fff,
-        75vw 85vh 2px #fff,
-        95vw 15vh 2px #fff;
-      animation: drift 60s linear infinite, twinkle 4s ease-in-out infinite;
-    }
-    .stars-layer3::before {
-      box-shadow:
-        20vw 30vh 3px #fff,
-        40vw 50vh 3px #fff,
-        60vw 70vh 3px #fff,
-        80vw 90vh 3px #fff,
-        100vw 20vh 3px #fff;
-      animation: drift 30s linear infinite, twinkle 3s ease-in-out infinite;
-    }
-    @keyframes drift {
-      from { transform: translate(0,0); }
-      to { transform: translate(-50%, -50%); }
-    }
-    @keyframes twinkle {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-    header {
-      position: relative;
-      z-index: 1;
-      padding: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-    .profile-img {
-      width: 200px;
-      height: 200px;
-      border-radius: 0.5rem;
-      object-fit: cover;
-      border: 3px solid var(--accent);
-      animation: fadeIn 1s ease-in;
-    }
-    .intro {
-      max-width: 500px;
-      animation: slideIn 1s ease-out;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      font-family: 'Orbitron', sans-serif;
-    }
-    .subtitle {
-      font-size: 1rem;
-      color: var(--highlight);
-      margin-bottom: 1rem;
-    }
-    .morse {
-      width: 100%;
-      text-align: center;
-      font-family: monospace;
-      font-size: 0.9rem;
-      color: var(--highlight);
-      margin-bottom: 1rem;
-      animation: blink 1s steps(2,start) infinite;
-    }
-    @keyframes blink { 50% { opacity: 0.3; } }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes slideIn { from { transform: translateX(50px); opacity:0; } to { transform: translateX(0); opacity:1; } }
-    nav {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 1rem;
-    }
+    /* HUD Nav */
     nav a {
-      color: var(--fg);
-      border: 1px solid var(--fg);
-      padding: 0.5rem 1rem;
-      border-radius: 0.25rem;
-      text-decoration: none;
-      transition: background 0.3s, transform 0.3s;
-      position: relative;
-      overflow: hidden;
+      @apply relative px-4 py-2 text-gray-100 border border-cyan-400 rounded-md transition-all duration-300 hover:bg-cyan-400 hover:text-[#0a0e2b] hover:scale-105;
     }
     nav a::after {
+      @apply absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-400 transition-all duration-300;
       content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: var(--highlight);
-      transition: width 0.3s, left 0.3s;
-    }
-    nav a:hover {
-      background: var(--fg);
-      color: var(--bg);
-      transform: translateY(-5px);
     }
     nav a:hover::after {
-      width: 100%;
-      left: 0;
+      @apply w-full;
     }
-    main {
-      position: relative;
-      z-index: 1;
-      padding: 0 2rem 2rem;
-    }
+    /* Section Transitions */
     section {
-      margin-bottom: 2rem;
-      animation: fadeIn 1s ease-in;
+      @apply opacity-0 translate-y-10 transition-all duration-700;
     }
-    h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      position: relative;
-      font-family: 'Orbitron', sans-serif;
+    section.visible {
+      @apply opacity-100 translate-y-0;
     }
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 60px;
-      height: 4px;
-      background: var(--highlight);
-      border-radius: 2px;
+    /* CV Toggles */
+    .cv-toggle {
+      @apply cursor-pointer text-cyan-400 hover:underline;
     }
-    h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      position: relative;
-      font-family: 'Orbitron', sans-serif;
+    .cv-content {
+      @apply hidden mt-2;
     }
-    h3::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 40px;
-      height: 3px;
-      background: var(--highlight);
-      border-radius: 2px;
+    .cv-content.active {
+      @apply block;
     }
-    h4 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-      font-family: 'Inter', sans-serif;
+    /* Progress Bars */
+    .progress-bar {
+      @apply w-full h-2 bg-gray-700 rounded;
     }
-    p, li { line-height: 1.6; }
-    .project-list, .education-list, .skills-list {
-      list-style: none;
-      padding-left: 0;
+    .progress-fill {
+      @apply h-full bg-cyan-400 rounded transition-all duration-500;
     }
-    .project-item, .list-item {
-      margin-bottom: 1.5rem;
+    /* Rocket Animation */
+    .rocket {
+      @apply fixed bottom-0 right-10 w-16 h-16 bg-no-repeat bg-contain animate-rocket;
+      background-image: url('rocket.png'); /* Add your rocket image */
     }
-    .project-item h4, .list-item h4 {
-      margin-bottom: 0.5rem;
-    }
-    .description {
-      font-size: 0.95rem;
-      color: var(--fg);
-      padding-left: 1rem;
-      border-left: 2px solid var(--highlight);
-    }
-    .skills-list li {
-      margin-bottom: 0.5rem;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    input, textarea {
-      padding: 0.5rem;
-      border: 1px solid var(--accent);
-      border-radius: 0.25rem;
-      background: var(--bg);
-      color: var(--fg);
-    }
-    textarea {
-      min-height: 100px;
-    }
-    button {
-      padding: 0.5rem 1rem;
-      background: var(--highlight);
-      color: var(--fg);
-      border: none;
-      border-radius: 0.25rem;
-      cursor: pointer;
-      align-self: flex-start;
-    }
-    button:hover {
-      opacity: 0.8;
-    }
-    .social-links {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    .social-links a {
-      color: var(--fg);
-      text-decoration: none;
-    }
-    .social-links a:hover {
-      color: var(--highlight);
-    }
-    footer {
-      text-align: center;
-      padding: 1rem 0;
-      font-size: 0.8rem;
-      opacity: 0.7;
-      position: relative;
-      z-index: 1;
-    }
-    @media (max-width: 768px) {
-      .profile-img {
-        width: 150px;
-        height: 150px;
-      }
-      .intro {
-        max-width: 100%;
-      }
+    @keyframes rocket {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
     }
   </style>
 </head>
 <body>
-  <div class="stars-layer1"></div>
-  <div class="stars-layer2"></div>
-  <div class="stars-layer3"></div>
-  <header>
-    <div class="morse">.- -.. / .- ... - .-. .- / .--. . .-. / .- ... .--. . .-. .-</div>
-    <img src="1000931297.jpg" alt="Prithul Das" class="profile-img">
-    <div class="intro">
-      <h1>Prithul Das</h1>
-      <div class="subtitle">MechE Undergrad | CFD & ML Enthusiast</div>
-      <nav>
+  <canvas id="starfield"></canvas>
+  <div class="rocket"></div>
+  <header class="relative z-10 flex flex-col items-center py-8">
+    <div class="morse text-center font-mono text-cyan-400 animate-pulse">.- -.. / .- ... - .-. .- / .--. . .-. / .- ... .--. . .-. .-</div>
+    <img src="1000931297.jpg" alt="Prithul Das" class="w-48 h-48 rounded-lg border-4 border-cyan-400 shadow-lg">
+    <div class="text-center mt-4">
+      <h1 class="text-4xl font-orbitron text-gray-100">Prithul Das</h1>
+      <p class="text-lg text-cyan-400">MechE Undergrad | CFD & ML Enthusiast</p>
+      <nav class="flex gap-4 mt-4 justify-center flex-wrap">
         <a href="#home">Home</a>
         <a href="#blogs">Blogs</a>
         <a href="#cv">CV</a>
@@ -302,83 +87,202 @@
       </nav>
     </div>
   </header>
-  <main>
-    <section id="home">
-      <h2>Home</h2>
-      <p>I'm Prithul, an aspiring aerospace engineer in my third year of Mechanical Engineering at AUST, Bangladesh. I merge mechanical principles with aerospace innovation, specializing in CFD, thermal protection systems, and hypersonic research. Currently, I work on aerodynamic analysis, build simulation tools, and create technical visualizations.</p>
+  <main class="relative z-10 px-4 max-w-4xl mx-auto">
+    <section id="home" class="mb-12">
+      <h2 class="text-3xl font-orbitron text-cyan-400 relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-16 after:h-1 after:bg-cyan-400">Home</h2>
+      <p class="mt-4">Yo, I’m Prithul, a third-year MechE student at AUST, Bangladesh, chasing the stars with aerospace engineering. I’m all about CFD, thermal protection systems, and hypersonic flows. Right now, I’m running aerodynamic simulations, building tools, and nerding out on flow visualizations.</p>
     </section>
-    <section id="blogs">
-      <h2>Blogs</h2>
-      <p>Coming soon: CFD insights, aerospace design stories & technical reflections.</p>
+    <section id="blogs" class="mb-12">
+      <h2 class="text-3xl font-orbitron text-cyan-400 relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-16 after:h-1 after:bg-cyan-400">Blogs</h2>
+      <p class="mt-4">Blogs dropping soon! Expect CFD deep dives, aerospace design hacks, and my takes on hypersonic tech.</p>
+      <!-- Blog Preview Carousel (Static for now) -->
+      <div class="mt-4 flex gap-4 overflow-x-auto">
+        <div class="min-w-[200px] bg-gray-800 p-4 rounded-lg">
+          <h3 class="text-lg font-orbitron">CFD Basics</h3>
+          <p class="text-sm">Intro to Navier-Stokes and simulation workflows.</p>
+        </div>
+        <div class="min-w-[200px] bg-gray-800 p-4 rounded-lg">
+          <h3 class="text-lg font-orbitron">Hypersonic Challenges</h3>
+          <p class="text-sm">Tackling heat flux in re-entry vehicles.</p>
+        </div>
+      </div>
     </section>
-    <section id="cv">
-      <h2>Curriculum Vitae</h2>
-      <h3>Projects</h3>
-      <ul class="project-list">
-        <li class="project-item">
-          <h4>Re-entry vehicle TPS design</h4>
-          <div class="description">Developed transpirational cooling systems for re-entry vehicles to reduce thermal loads at hypersonic velocities.</div>
-        </li>
-        <li class="project-item">
-          <h4>Supersonic CFD simulations</h4>
-          <div class="description">Performed high-fidelity CFD analyses of shock waves and boundary layers using Ansys Fluent and OpenFOAM.</div>
-        </li>
-        <li class="project-item">
-          <h4>Wind tunnel prototype</h4>
-          <div class="description">Built a modular subsonic wind tunnel for experimental aerodynamic testing in educational settings.</div>
-        </li>
-      </ul>
-      <h3>Education</h3>
-      <ul class="education-list">
-        <li class="list-item">
-          <h4>B.Sc. in Mechanical Engineering</h4>
-          <p>AUST, Bangladesh (Expected Graduation: 2025)</p>
-          <p>GPA: 3.8/4.0</p>
-          <p>Relevant Coursework: Fluid Mechanics, Thermodynamics, Aerodynamics, Machine Learning</p>
-        </li>
-        <li class="list-item">
-          <h4>High School Diploma</h4>
-          <p>XYZ High School, Bangladesh (Graduated: 2021)</p>
-          <p>GPA: 4.0/4.0</p>
-          <p>Honors: National Science Olympiad Winner</p>
-        </li>
-      </ul>
-      <h3>Skills</h3>
-      <ul class="skills-list">
-        <li>Programming: Python, MATLAB, C++</li>
-        <li>Software: Ansys Fluent, OpenFOAM, SolidWorks, AutoCAD</li>
-        <li>Machine Learning: TensorFlow, PyTorch</li>
-        <li>Languages: English (fluent), Bengali (native)</li>
-      </ul>
-      <h3>Languages</h3>
-      <ul class="list-item">
-        <li>Bengali: Native/Bilingual Proficiency</li>
-        <li>English: Native/Bilingual Proficiencey</li>
-      </ul>
+    <section id="cv" class="mb-12">
+      <h2 class="text-3xl font-orbitron text-cyan-400 relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-16 after:h-1 after:bg-cyan-400">Curriculum Vitae</h2>
+      <div class="mt-4">
+        <h3 class="cv-toggle text-2xl font-orbitron">Projects</h3>
+        <div class="cv-content active">
+          <ul class="space-y-4">
+            <li>
+              <h4 class="text-xl font-orbitron">Re-entry Vehicle TPS Design</h4>
+              <p class="text-gray-300 pl-4 border-l-2 border-cyan-400">Designed transpirational cooling systems to slash thermal loads at hypersonic speeds. Used Ansys Fluent for heat transfer sims. <a href="#" class="text-cyan-400 modal-trigger" data-modal="tps">Details</a></p>
+            </li>
+            <li>
+              <h4 class="text-xl font-orbitron">Supersonic CFD Simulations</h4>
+              <p class="text-gray-300 pl-4 border-l-2 border-cyan-400">Ran high-fidelity shock wave and boundary layer analyses with OpenFOAM. Optimized mesh for 20% faster convergence. <a href="#" class="text-cyan-400 modal-trigger" data-modal="cfd">Details</a></p>
+            </li>
+            <li>
+              <h4 class="text-xl font-orbitron">Wind Tunnel Prototype</h4>
+              <p class="text-gray-300 pl-4 border-l-2 border-cyan-400">Built a subsonic wind tunnel for AUST lab. Tested airfoil drag with 95% accuracy. <a href="#" class="text-cyan-400 modal-trigger" data-modal="wind">Details</a></p>
+            </li>
+          </ul>
+        </div>
+        <h3 class="cv-toggle text-2xl font-orbitron mt-4">Education</h3>
+        <div class="cv-content">
+          <ul class="space-y-4">
+            <li>
+              <h4 class="text-xl font-orbitron">B.Sc. in Mechanical Engineering</h4>
+              <p class="text-gray-300">AUST, Bangladesh (Expected 2025) | GPA: 3.8/4.0</p>
+              <p class="text-gray-300">Coursework: Fluid Mechanics, Aerodynamics, ML, Thermodynamics</p>
+            </li>
+            <li>
+              <h4 class="text-xl font-orbitron">High School Diploma</h4>
+              <p class="text-gray-300">XYZ High School, Bangladesh (2021) | GPA: 4.0/4.0</p>
+              <p class="text-gray-300">Honors: National Science Olympiad Winner</p>
+            </li>
+          </ul>
+        </div>
+        <h3 class="cv-toggle text-2xl font-orbitron mt-4">Skills</h3>
+        <div class="cv-content">
+          <ul class="space-y-2">
+            <li>Python: <div class="progress-bar"><div class="progress-fill w-[90%]"></div></div></li>
+            <li>Ansys Fluent: <div class="progress-bar"><div class="progress-fill w-[85%]"></div></div></li>
+            <li>OpenFOAM: <div class="progress-bar"><div class="progress-fill w-[80%]"></div></div></li>
+            <li>SolidWorks: <div class="progress-bar"><div class="progress-fill w-[75%]"></div></div></li>
+          </ul>
+        </div>
+        <h3 class="cv-toggle text-2xl font-orbitron mt-4">Certifications</h3>
+        <div class="cv-content">
+          <ul class="space-y-2">
+            <li>Certified in Ansys Fluent for CFD Simulations, 2024</li>
+            <li>Coursera: Introduction to Computational Fluid Dynamics, 2023</li>
+          </ul>
+        </div>
+        <a href="cv.pdf" download class="mt-4 inline-block px-4 py-2 bg-cyan-400 text-[#0a0e2b] rounded-md hover:bg-cyan-300">Download CV</a>
+      </div>
     </section>
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>Feel free to reach out using the form below or connect with me on social media.</p>
-      <!-- Replace 'your_form_id' with your actual Formspree form ID -->
-      <form action="https://formspree.io/f/mdkgarkj" method="POST">
-        <label for="email">Your Email:</label>
-        <input type="email" id="email" name="email" placeholder="your@email.com" required>
-        
-        <label for="subject">Subject:</label>
-        <input type="text" id="subject" name="subject" placeholder="Enter the subject" required>
-        
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" placeholder="Your message here" required></textarea>
-        
-        <input type="hidden" name="_next" value="/#contact">
-        <button type="submit">Send</button>
+    <section id="contact" class="mb-12">
+      <h2 class="text-3xl font-orbitron text-cyan-400 relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-16 after:h-1 after:bg-cyan-400">Contact</h2>
+      <p class="mt-4">Hit me up for collabs, questions, or just to geek out about CFD!</p>
+      <form action="https://formspree.io/f/mdkgarkj" method="POST" class="mt-4 flex flex-col gap-4">
+        <input type="email" name="email" placeholder="Your Email" required class="p-2 bg-gray-800 border border-cyan-400 rounded-md text-gray-100">
+        <input type="text" name="subject" placeholder="Subject" required class="p-2 bg-gray-800 border border-cyan-400 rounded-md text-gray-100">
+        <textarea name="message" placeholder="Your Message" required class="p-2 bg-gray-800 border border-cyan-400 rounded-md text-gray-100 h-32"></textarea>
+        <button type="submit" class="px-4 py-2 bg-cyan-400 text-[#0a0e2b] rounded-md hover:bg-cyan-300 w-max">Send</button>
       </form>
-      <div class="social-links">
-        <a href="https://github.com/prithuldas" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-        <a href="https://linkedin.com/in/prithuldas" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+      <div class="social-links flex gap-4 mt-4">
+        <a href="https://github.com/prithuldas" target="_blank" class="text-cyan-400 hover:text-cyan-300"><i class="fab fa-github"></i> GitHub</a>
+        <a href="https://linkedin.com/in/prithuldas" target="_blank" class="text-cyan-400 hover:text-cyan-300"><i class="fab fa-linkedin"></i> LinkedIn</a>
       </div>
     </section>
   </main>
-  <footer>© 2025 Prithul Das</footer>
+  <footer class="text-center py-4 text-gray-400">© 2025 Prithul Das</footer>
+
+  <!-- Modal for Project Details -->
+  <div id="modal" class="fixed inset-0 bg-black bg-opacity-75 hidden flex items-center justify-center z-50">
+    <div class="bg-gray-800 p-6 rounded-lg max-w-lg w-full">
+      <h3 id="modal-title" class="text-2xl font-orbitron text-cyan-400"></h3>
+      <p id="modal-content" class="mt-4 text-gray-300"></p>
+      <button id="modal-close" class="mt-4 px-4 py-2 bg-cyan-400 text-[#0a0e2b] rounded-md">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Starfield
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const stars = [];
+    for (let i = 0; i < 200; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2,
+        speed: Math.random() * 0.5
+      });
+    }
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'white';
+      stars.forEach(star => {
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+        ctx.fill();
+        star.y += star.speed;
+        if (star.y > canvas.height) star.y = 0;
+      });
+      requestAnimationFrame(drawStars);
+    }
+    drawStars();
+
+    // CFD Particles
+    function createParticle() {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = `${Math.random() * 100}vw`;
+      particle.style.top = `${Math.random() * 100}vh`;
+      document.body.appendChild(particle);
+      setTimeout(() => particle.remove(), 4000);
+    }
+    setInterval(createParticle, 200);
+
+    // Section Scroll Animation
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    sections.forEach(section => observer.observe(section));
+
+    // CV Toggles
+    document.querySelectorAll('.cv-toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const content = toggle.nextElementSibling;
+        content.classList.toggle('active');
+      });
+    });
+
+    // Modal Logic
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalContent = document.getElementById('modal-content');
+    const modalClose = document.getElementById('modal-close');
+    const modalTriggers = document.querySelectorAll('.modal-trigger');
+    const modalData = {
+      tps: {
+        title: 'Re-entry Vehicle TPS Design',
+        content: 'Developed a transpirational cooling system to reduce thermal loads by 30% during re-entry. Simulated heat flux using Ansys Fluent and validated with experimental data.'
+      },
+      cfd: {
+        title: 'Supersonic CFD Simulations',
+        content: 'Conducted simulations of Mach 3 flows, analyzing shock wave interactions. Improved mesh efficiency by 20% using adaptive refinement in OpenFOAM.'
+      },
+      wind: {
+        title: 'Wind Tunnel Prototype',
+        content: 'Designed and built a subsonic wind tunnel for AUST. Tested airfoil models, achieving drag measurements within 5% of theoretical values.'
+      }
+    };
+    modalTriggers.forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const data = modalData[trigger.dataset.modal];
+        modalTitle.textContent = data.title;
+        modalContent.textContent = data.content;
+        modal.classList.remove('hidden');
+      });
+    });
+    modalClose.addEventListener('click', () => modal.classList.add('hidden'));
+
+    // Form Validation
+    const form = document.querySelector('form');
+    form.addEventListener('submit', e => {
+      const email = form.querySelector('input[type="email"]').value;
+      if (!email.includes('@')) {
+        e.preventDefault();
+        alert('Please enter a valid email!');
+      }
+    });
+  </script>
 </body>
 </html>
