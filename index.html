@@ -1,203 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Prithul Das — Mechanical Engineer & Aspiring Aerospace Researcher">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prithul Das</title>
-  <link href="https://fonts.googleapis.com/css2?family=CMU+Serif&display=swap" rel="stylesheet">
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #1b1f23;
-      --fg: #f3f4f6;
+      --fg: #e5e7eb;
       --accent: #a0a0a0;
-      --font: 'CMU Serif', serif;
-      --line-color: rgba(243, 244, 246, 0.05);
+      --font-main: 'Inter', sans-serif;
+      --line-color: rgba(229,231,235,0.02);
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
     body {
       background-color: var(--bg);
       background-image:
         repeating-linear-gradient(45deg, var(--line-color) 0, var(--line-color) 1px, transparent 1px, transparent 20px),
         repeating-linear-gradient(-45deg, var(--line-color) 0, var(--line-color) 1px, transparent 1px, transparent 20px);
       color: var(--fg);
-      font-family: var(--font);
-      line-height: 1.6;
-      padding: 1rem;
-      position: relative;
-      animation: fadeIn 0.8s ease-in;
-      max-width: 900px;
-      margin: 0 auto;
+      font-family: var(--font-main);
+      display: flex; flex-direction: column; align-items: center;
+      min-height: 100vh; padding:2rem; position: relative;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    header {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-
-    h2 {
-      font-size: 1.4rem;
-      margin: 1rem 0 0.5rem;
-      color: var(--accent);
-    }
-
-    p {
-      max-width: 700px;
-      margin: 0.5rem auto;
-      text-align: center;
-    }
-
+    header { text-align:center; margin-bottom:2rem; }
+    h1 { font-size:3rem; font-weight:600; color: var(--accent); }
     nav {
-      text-align: center;
-      margin-top: 0.5rem;
+      margin-top:1rem;
+      display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;
     }
-
     nav a {
-      display: inline-block;
-      margin: 0.2rem 0.4rem;
-      color: var(--fg);
-      background-color: #2d3748;
-      border: 1px solid var(--accent);
-      padding: 0.3rem 0.8rem;
-      border-radius: 0.25rem;
-      text-decoration: none;
-      transition: background-color 0.3s, color 0.3s;
-      font-size: 0.9rem;
+      text-decoration:none; color: var(--fg); font-weight:600;
+      padding:0.5rem 1rem; border:1px solid var(--accent);
+      border-radius:0.25rem; transition: background 0.3s;
     }
-
-    nav a:hover {
-      background-color: var(--accent);
-      color: var(--bg);
-    }
-
+    nav a:hover { background: var(--accent); color: var(--bg); }
     section {
-      padding: 1rem 0;
-      border-top: 1px solid #2a2e33;
+      max-width:800px; margin-bottom:2rem; text-align:left; z-index:1;
+      margin-left: auto; margin-right: auto;
     }
-
-    .project-list {
-      list-style: none;
-      max-width: 700px;
-      margin: 0.5rem auto;
-      padding-left: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
+    section p, .list-item { text-align: justify; }
+    .profile-img {
+      width:150px; height:150px; border-radius:50%; object-fit:cover;
+      display:block; margin:0 auto 1rem; border:2px solid var(--accent);
     }
-
-    .project-list li::before {
-      content: "\2022";
-      color: var(--accent);
-      display: inline-block;
-      width: 1em;
-      margin-left: -1em;
+    h2 { font-size:1.8rem; margin-bottom:1rem; color: var(--fg); }
+    h3 { font-size:1.3rem; margin-bottom:0.5rem; color: var(--accent); }
+    p, li { font-size:1rem; line-height:1.6; color: var(--fg); }
+    .project-list, .education-list { list-style:none; padding-left:1rem; }
+    .project-list li, .education-list li { margin-bottom:0.5rem; position:relative; }
+    .project-list li::before, .education-list li::before {
+      content:'▹'; color: var(--accent); position:absolute; left:-1.2rem;
     }
-
-    footer {
-      text-align: center;
-      font-size: 0.8rem;
-      margin-top: 2rem;
-      opacity: 0.6;
-      padding-bottom: 1rem;
-    }
-
-    .blinker {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      color: var(--fg);
-      font-family: monospace;
-      font-size: 0.75rem;
-      white-space: nowrap;
-      animation: blink-morse 1s steps(1) infinite;
-    }
-
-    @keyframes blink-morse {
-      0%,100% { opacity: 1; }
-      50%    { opacity: 0; }
-    }
+    footer { font-size:0.8rem; opacity:0.7; margin-top:auto; }
   </style>
 </head>
-
 <body>
-  <div class="blinker">.- . .-. --- / .--. .-. .. - .... ..- .-..</div>
   <header>
     <h1>Prithul Das</h1>
-    <p>Mechanical Engineering Student | Aspiring Aerospace Engineer | CFD & Thermofluids Enthusiast</p>
     <nav>
-      <a href="#about">About Me</a>
-      <a href="#projects">Projects</a>
-      <a href="#education">Education</a>
+      <a href="#home">Home</a>
       <a href="#blogs">Blogs</a>
-      <a href="#now">Now</a>
+      <a href="#cv">CV</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>I'm Prithul Das, an aspiring aerospace engineer in my third year of Mechanical Engineering at AUST, Bangladesh. I merge mechanical principles with aerospace innovation, focusing on aerodynamic analysis, thermal protection systems, and fluid flow optimization using Ansys Fluent, COMSOL, and OpenFOAM.</p>
-  </section>
+  <main style="width:100%;">
+    <section id="home">
+      <h2>Home</h2>
+      <img src="your-photo.jpg" alt="Prithul Das" class="profile-img">
+      <p>I'm Prithul, an aspiring aerospace engineer in my third year of Mechanical Engineering at Ahsanullah University of Science and Technology (AUST), Bangladesh. I blend mechanical fundamentals with aerospace innovation, specializing in CFD, thermal protection systems, and hypersonic research. I’m currently working on advanced aerodynamic analysis, and enjoy building simulation tools and visualizing engineering concepts through coding and design.</p>
+    </section>
 
-  <section id="projects">
-    <h2>Projects & Interests</h2>
-    <ul class="project-list">
-      <li>Re-entry vehicle TPS with transpirational cooling</li>
-      <li>Supersonic flow simulations using Ansys</li>
-      <li>OpenFOAM CFD explorations</li>
-      <li>Low-cost subsonic wind tunnel design</li>
-      <li>Technical visuals with Manim & Blender</li>
-      <li>Sand battery performance optimization</li>
-      <li>LaTeX/TikZ scientific note creation</li>
-    </ul>
-  </section>
+    <section id="blogs">
+      <h2>Blogs</h2>
+      <p>Coming soon: CFD insights, aerospace design stories & technical reflections.</p>
+    </section>
 
-  <section id="education">
-    <h2>Education</h2>
-    <p>B.Sc. in Mechanical Engineering, AUST (Third-year undergraduate)</p>
-  </section>
+    <section id="cv">
+      <h2>Curriculum Vitae</h2>
+      <h3>Projects & Interests</h3>
+      <ul class="project-list">
+        <li class="list-item">Re-entry vehicle TPS design with transpirational cooling</li>
+        <li class="list-item">Supersonic CFD simulations (Ansys Fluent & OpenFOAM)</li>
+        <li class="list-item">Low-cost subsonic wind tunnel development</li>
+        <li class="list-item">Sand battery energy storage research</li>
+        <li class="list-item">Technical visualization with Manim & Blender</li>
+        <li class="list-item">Combinational logic circuits & digital electronics projects</li>
+      </ul>
+      <h3>Education</h3>
+      <ul class="education-list">
+        <li class="list-item">B.Sc. in Mechanical Engineering, Ahsanullah University of Science and Technology (Third-year)</li>
+      </ul>
+    </section>
 
-  <section id="blogs">
-    <h2>Blogs</h2>
-    <p>Coming soon... insights on CFD, aerospace, and engineering reflections.</p>
-  </section>
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Email: <a href="mailto:youremail@example.com" style="color: var(--accent)">youremail@example.com</a></p>
+      <p>GitHub: <a href="https://github.com/prithuldas" target="_blank" style="color: var(--accent)">github.com/prithuldas</a></p>
+      <p>LinkedIn: <a href="https://linkedin.com/in/prithuldas" target="_blank" style="color: var(--accent)">linkedin.com/in/prithuldas</a></p>
+    </section>
+  </main>
 
-  <section id="now">
-    <h2>Now</h2>
-    <p>Deepening CFD & thermofluids expertise: aerodynamic lift/drag analysis, turbulence modeling, and integrating ML techniques into simulation workflows.</p>
-  </section>
-
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:youremail@example.com" style="color: var(--accent)">youremail@example.com</a></p>
-    <p>GitHub: <a href="https://github.com/prithuldas" target="_blank" style="color: var(--accent)">github.com/prithuldas</a></p>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 Prithul Das. All rights reserved.</p>
-  </footer>
+  <footer>&copy; 2025 Prithul Das</footer>
 </body>
-
 </html>
