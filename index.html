@@ -1,369 +1,591 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Prithul Das</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    :root {
-      --bg: #262c31;
-      --fg: #fdfcfd;
-      --accent: #fdfcfd;
-      --highlight: #71541e;
-      --font-main: 'Inter', sans-serif;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      background-color: var(--bg);
-      color: var(--fg);
-      font-family: var(--font-main);
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-    }
-    .stars-layer1, .stars-layer2, .stars-layer3 {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 0;
-    }
-    .stars-layer1::before,
-    .stars-layer2::before,
-    .stars-layer3::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 200%;
-      height: 200%;
-      background: transparent;
-    }
-    .stars-layer1::before {
-      box-shadow:
-        10vw 20vh 1px #fff,
-        30vw 40vh 1px #fff,
-        50vw 60vh 1px #fff,
-        70vw 80vh 1px #fff,
-        90vw 10vh 1px #fff;
-      animation: drift 120s linear infinite, twinkle 5s ease-in-out infinite;
-    }
-    .stars-layer2::before {
-      box-shadow:
-        15vw 25vh 2px #fff,
-        35vw 45vh 2px #fff,
-        55vw 65vh 2px #fff,
-        75vw 85vh 2px #fff,
-        95vw 15vh 2px #fff;
-      animation: drift 60s linear infinite, twinkle 4s ease-in-out infinite;
-    }
-    .stars-layer3::before {
-      box-shadow:
-        20vw 30vh 3px #fff,
-        40vw 50vh 3px #fff,
-        60vw 70vh 3px #fff,
-        80vw 90vh 3px #fff,
-        100vw 20vh 3px #fff;
-      animation: drift 30s linear infinite, twinkle 3s ease-in-out infinite;
-    }
-    @keyframes drift {
-      from { transform: translate(0,0); }
-      to { transform: translate(-50%, -50%); }
-    }
-    @keyframes twinkle {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-    header {
-      position: relative;
-      z-index: 1;
-      padding: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-    }
-    .profile-img {
-      width: 200px;
-      height: 200px;
-      border-radius: 0.5rem;
-      object-fit: cover;
-      border: 3px solid var(--accent);
-      animation: fadeIn 1s ease-in;
-    }
-    .intro {
-      max-width: 500px;
-      animation: slideIn 1s ease-out;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      font-family: 'Orbitron', sans-serif;
-    }
-    .subtitle {
-      font-size: 1rem;
-      color: var(--highlight);
-      margin-bottom: 1rem;
-    }
-    .morse {
-      width: 100%;
-      text-align: center;
-      font-family: monospace;
-      font-size: 0.9rem;
-      color: var(--highlight);
-      margin-bottom: 1rem;
-      animation: blink 1s steps(2,start) infinite;
-    }
-    @keyframes blink { 50% { opacity: 0.3; } }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes slideIn { from { transform: translateX(50px); opacity:0; } to { transform: translateX(0); opacity:1; } }
-    nav {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 1rem;
-    }
-    nav a {
-      color: var(--fg);
-      border: 1px solid var(--fg);
-      padding: 0.5rem 1rem;
-      border-radius: 0.25rem;
-      text-decoration: none;
-      transition: background 0.3s, transform 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: var(--highlight);
-      transition: width 0.3s, left 0.3s;
-    }
-    nav a:hover {
-      background: var(--fg);
-      color: var(--bg);
-      transform: translateY(-5px);
-    }
-    nav a:hover::after {
-      width: 100%;
-      left: 0;
-    }
-    main {
-      position: relative;
-      z-index: 1;
-      padding: 0 2rem 2rem;
-    }
-    section {
-      margin-bottom: 2rem;
-      animation: fadeIn 1s ease-in;
-    }
-    h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      position: relative;
-      font-family: 'Orbitron', sans-serif;
-    }
-    h2::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 60px;
-      height: 4px;
-      background: var(--highlight);
-      border-radius: 2px;
-    }
-    h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      position: relative;
-      font-family: 'Orbitron', sans-serif;
-    }
-    h3::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 40px;
-      height: 3px;
-      background: var(--highlight);
-      border-radius: 2px;
-    }
-    h4 {
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-      font-family: 'Inter', sans-serif;
-    }
-    p, li { line-height: 1.6; }
-    .project-list, .education-list, .skills-list {
-      list-style: none;
-      padding-left: 0;
-    }
-    .project-item, .list-item {
-      margin-bottom: 1.5rem;
-    }
-    .project-item h4, .list-item h4 {
-      margin-bottom: 0.5rem;
-    }
-    .description {
-      font-size: 0.95rem;
-      color: var(--fg);
-      padding-left: 1rem;
-      border-left: 2px solid var(--highlight);
-    }
-    .skills-list li {
-      margin-bottom: 0.5rem;
-    }
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    input, textarea {
-      padding: 0.5rem;
-      border: 1px solid var(--accent);
-      border-radius: 0.25rem;
-      background: var(--bg);
-      color: var(--fg);
-    }
-    textarea {
-      min-height: 100px;
-    }
-    button {
-      padding: 0.5rem 1rem;
-      background: var(--highlight);
-      color: var(--fg);
-      border: none;
-      border-radius: 0.25rem;
-      cursor: pointer;
-      align-self: flex-start;
-    }
-    button:hover {
-      opacity: 0.8;
-    }
-    .social-links {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-    .social-links a {
-      color: var(--fg);
-      text-decoration: none;
-    }
-    .social-links a:hover {
-      color: var(--highlight);
-    }
-    footer {
-      text-align: center;
-      padding: 1rem 0;
-      font-size: 0.8rem;
-      opacity: 0.7;
-      position: relative;
-      z-index: 1;
-    }
-    @media (max-width: 768px) {
-      .profile-img {
-        width: 150px;
-        height: 150px;
-      }
-      .intro {
-        max-width: 100%;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Academic Portfolio of Prithul Das, Undergraduate Mechanical Engineering Student specializing in CFD and Thermal-Fluid Systems at AUST.">
+    <title>Prithul Das | Mechanical Engineering Researcher</title>
+    
+    <!-- Using Inter font for a clean, academic look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for minimal icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            /* Color Palette - Academic & Professional */
+            --bg-color: #ffffff;
+            --bg-alt: #f8f9fa; /* Light grey for section contrast */
+            --text-main: #1a1a1a;
+            --text-muted: #555555;
+            --accent-color: #2c5282; /* Muted Academic Blue */
+            --border-color: #e2e8f0;
+            
+            /* Typography */
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            
+            /* Spacing */
+            --container-width: 800px; /* Standard readable width for academic text */
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--accent-color);
+            transition: opacity 0.2s ease;
+        }
+
+        a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* --- LAYOUT UTILITIES --- */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        section {
+            padding: var(--spacing-xl) 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, h4 {
+            color: var(--text-main);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--accent-color);
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        p {
+            margin-bottom: var(--spacing-md);
+            color: var(--text-muted);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            padding: var(--spacing-md) 0;
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 1.1rem;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-lg);
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding-top: 6rem;
+            padding-bottom: 4rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: var(--spacing-sm);
+            font-weight: 300;
+        }
+
+        .hero-affiliation {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+            border: 1px solid var(--accent-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #1e3a5f;
+            text-decoration: none;
+            opacity: 1;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-muted);
+            background-color: var(--bg-alt);
+            text-decoration: none;
+            opacity: 1;
+        }
+
+        /* --- LIST STYLES (Research & Experience) --- */
+        .item-list {
+            list-style: none;
+        }
+
+        .item {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 0.2rem;
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .item-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-main);
+        }
+
+        .item-subtitle {
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            background-color: var(--bg-alt);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-muted);
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+        /* --- SKILLS GRID --- */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .skill-category h4 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent-color);
+            margin-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.2rem;
+        }
+
+        .skill-category ul {
+            list-style: none;
+        }
+
+        .skill-category li {
+            font-size: 0.95rem;
+            margin-bottom: 0.3rem;
+            color: var(--text-muted);
+        }
+
+        /* --- CONTACT --- */
+        .contact-list {
+            list-style: none;
+            margin-top: var(--spacing-md);
+        }
+
+        .contact-list li {
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .contact-list i {
+            width: 20px;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: var(--spacing-lg) 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: var(--spacing-xl);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            :root {
+                --spacing-xl: 3rem;
+            }
+            
+            .nav-links {
+                display: none; /* Simple hiding for mobile, ideally a hamburger menu, but keeping it simple/clean as requested */
+            }
+            
+            .nav-inner {
+                justify-content: center;
+            }
+
+            .item-header {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="stars-layer1"></div>
-  <div class="stars-layer2"></div>
-  <div class="stars-layer3"></div>
-  <header>
-    <div class="morse">.- -.. / .- ... - .-. .- / .--. . .-. / .- ... .--. . .-. .-</div>
-    <img src="1000931297.jpg" alt="Prithul Das" class="profile-img">
-    <div class="intro">
-      <h1>Prithul Das</h1>
-      <div class="subtitle">MechE Undergrad | CFD & ML Enthusiast</div>
-      <nav>
-        <a href="#home">Home</a>
-        <a href="#blogs">Blogs</a>
-        <a href="#cv">CV</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
-  <main>
-    <section id="home">
-      <h2>Home</h2>
-      <p>I'm Prithul, an aspiring aerospace engineer in my third year of Mechanical Engineering at AUST, Bangladesh. I merge mechanical principles with aerospace innovation, specializing in CFD, thermal protection systems, and hypersonic research. Currently, I work on aerodynamic analysis, build simulation tools, and create technical visualizations.</p>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-inner">
+            <a href="#" class="nav-brand">Prithul Das</a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#research">Research</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#experience">Experience</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <h1>Prithul Das</h1>
+            <div class="hero-subtitle">Undergraduate Mechanical Engineering Student | CFD & Thermal-Fluid Systems</div>
+            <div class="hero-affiliation">
+                Ahsanullah University of Science and Technology (AUST), Bangladesh
+            </div>
+            <div class="hero-actions">
+                <a href="#contact" class="btn btn-primary">Contact Me</a>
+                <!-- Link to the CV PDF provided -->
+                <a href="cv.pdf" target="_blank" class="btn btn-secondary">Download CV</a>
+            </div>
+        </div>
     </section>
-    <section id="blogs">
-      <h2>Blogs</h2>
-      <p>Coming soon: CFD insights, aerospace design stories & technical reflections.</p>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <h2>About</h2>
+            <p>
+                I am a final-year undergraduate student in Mechanical Engineering at Ahsanullah University of Science and Technology (AUST), expecting to graduate in May 2027. My academic interests are centered on fluid mechanics, specifically Computational Fluid Dynamics (CFD), high-speed aerodynamics, and thermal protection systems.
+            </p>
+            <p>
+                Currently, I serve as a Co-Founder of the AUST Applied Modelling and Simulation Lab (AASML), a student-driven initiative where I lead research on aerodynamic flows and thermal-fluid interactions. My work involves leveraging numerical methods (ANSYS Fluent) and experimental validation to analyze complex flow phenomena, from subsonic rocket fin designs to supersonic shock structures.
+            </p>
+            <p>
+                I am driven by a disciplined approach to engineering problems and aspire to contribute to advanced research in propulsion and aerospace systems at a top-tier research institution.
+            </p>
+        </div>
     </section>
-    <section id="cv">
-      <h2>Curriculum Vitae</h2>
-      <h3>Projects</h3>
-      <ul class="project-list">
-        <li class="project-item">
-          <h4>Re-entry vehicle TPS design</h4>
-          <div class="description">Developed transpirational cooling systems for re-entry vehicles to reduce thermal loads at hypersonic velocities.</div>
-        </li>
-        <li class="project-item">
-          <h4>Supersonic CFD simulations</h4>
-          <div class="description">Performed high-fidelity CFD analyses of shock waves and boundary layers using Ansys Fluent and OpenFOAM.</div>
-        </li>
-        <li class="project-item">
-          <h4>Wind tunnel prototype</h4>
-          <div class="description">Built a modular subsonic wind tunnel for experimental aerodynamic testing in educational settings.</div>
-        </li>
-      </ul>
-      <h3>Skills</h3>
-      <ul class="skills-list">
-        <li>Programming: Python, MATLAB, C++</li>
-        <li>Software: Ansys Fluent, OpenFOAM, SolidWorks, AutoCAD</li>
-        <li>Machine Learning: TensorFlow, PyTorch</li>
-        <li>Languages: English (fluent), Bengali (native)</li>
-      </ul>
-      <h3>Languages</h3>
-      <ul class="list-item">
-        <li>Bengali: Native/Bilingual Proficiency</li>
-        <li>English: Native/Bilingual Proficiencey</li>
-      </ul>
+
+    <!-- Research Section -->
+    <section id="research">
+        <div class="container">
+            <h2>Conference Papers</h2>
+            <ul class="item-list">
+                <li class="item">
+                    <div class="item-header">
+                        <span class="item-title">Aerodynamic Comparison Analysis of Conic Rocket Fin Designs in Subsonic Flow</span>
+                        <span class="item-meta">2025</span>
+                    </div>
+                    <span class="tag">Presented</span>
+                    <p>
+                        A CFD-based comparative study analyzing the stability and drag characteristics of straight, trapezoidal, and shark-caved fin geometries.
+                    </p>
+                </li>
+                <li class="item">
+                    <div class="item-header">
+                        <span class="item-title">Experimental Performance Evaluation of an Earth Tunnel Heat Exchanger (ETHX) System</span>
+                        <span class="item-meta">2025</span>
+                    </div>
+                    <span class="tag">Presented</span>
+                    <p>
+                        An experimental investigation into passive geothermal HVAC systems for space cooling and heating in hot and humid climates like Bangladesh.
+                    </p>
+                </li>
+            </ul>
+        </div>
     </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2>Technical Projects</h2>
+            <ul class="item-list">
+                <li class="item">
+                    <div class="item-header">
+                        <span class="item-title">Supersonic Flow Simulations (Mach 6)</span>
+                        <span class="item-meta">ANSYS Fluent</span>
+                    </div>
+                    <p>
+                        Conducted numerical simulations of compressible flow at Mach 6 to investigate shock wave structures. Performed mesh sensitivity analysis to ensure solution independence and accuracy in high-speed flow regimes.
+                    </p>
+                </li>
+                <li class="item">
+                    <div class="item-header">
+                        <span class="item-title">Re-entry Vehicle Thermal Protection System (TPS)</span>
+                        <span class="item-meta">CFD / Heat Transfer</span>
+                    </div>
+                    <p>
+                        Designed and simulated transpirational cooling systems for re-entry vehicles. The project focused on reducing extreme thermal loads experienced during atmospheric entry at hypersonic velocities.
+                    </p>
+                </li>
+                <li class="item">
+                    <div class="item-header">
+                        <span class="item-title">Subsonic Wind Tunnel Prototype</span>
+                        <span class="item-meta">Fabrication / Experimental</span>
+                    </div>
+                    <p>
+                        Designed and fabricated a modular subsonic wind tunnel. This apparatus facilitates experimental aerodynamic testing and flow visualization for educational and research purposes within the department.
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4>CFD & Simulation</h4>
+                    <ul>
+                        <li>ANSYS Fluent</li>
+                        <li>Mesh Generation</li>
+                        <li>RANS Turbulence Modeling</li>
+                        <li>OpenFOAM</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h4>Programming</h4>
+                    <ul>
+                        <li>Python</li>
+                        <li>MATLAB</li>
+                        <li>C++ (Working Knowledge)</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h4>Scientific Computing</h4>
+                    <ul>
+                        <li>NumPy & SciPy</li>
+                        <li>Matplotlib</li>
+                        <li>Data Visualization</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h4>Tools & Docs</h4>
+                    <ul>
+                        <li>SolidWorks (CAD)</li>
+                        <li>LaTeX</li>
+                        <li>AutoCAD</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="container">
+            <h2>Experience & Leadership</h2>
+            <ul class="item-list">
+                <li class="item">
+                    <div class="item-header">
+                        <span class="item-title">Co-Founder</span>
+                        <span class="item-meta">2025 – Present</span>
+                    </div>
+                    <span class="item-subtitle">AUST Applied Modelling and Simulation Lab (AASML)</span>
+                    <p>
+                        Co-founded a student-driven research lab to foster a culture of computational engineering. Initiating CFD-based research in aerodynamics and thermal-fluid systems while mentoring junior students in simulation methodologies.
+                    </p>
+                </li>
+                <li class="item">
+                    <div class="item-header">
+                        <span class="item-title">Communication Director</span>
+                        <span class="item-meta">Dec 2025 – Present</span>
+                    </div>
+                    <span class="item-subtitle">IMechE AUST Student Chapter</span>
+                    <p>
+                        Lead official communications and technical event publicity. Coordinate outreach and documentation for engineering seminars and professional development workshops.
+                    </p>
+                </li>
+                <li class="item">
+                    <div class="item-header">
+                        <span class="item-title">Recruitment Director</span>
+                        <span class="item-meta">Jul 2025 – Dec 2025</span>
+                    </div>
+                    <span class="item-subtitle">IMechE AUST Student Chapter</span>
+                    <p>
+                        Directed recruitment planning, candidate evaluation, and organizational onboarding for new members, ensuring a robust team structure.
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education">
+        <div class="container">
+            <h2>Education</h2>
+            <div class="item">
+                <div class="item-header">
+                    <span class="item-title">B.Sc. in Mechanical Engineering</span>
+                    <span class="item-meta">Expected May 2027</span>
+                </div>
+                <span class="item-subtitle">Ahsanullah University of Science and Technology (AUST)</span>
+                <p>Dhaka, Bangladesh</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
     <section id="contact">
-      <h2>Contact</h2>
-      <p>Feel free to reach out using the form below or connect with me on social media.</p>
-      <!-- Replace 'your_form_id' with your actual Formspree form ID -->
-      <form action="https://formspree.io/f/mdkgarkj" method="POST">
-        <label for="email">Your Email:</label>
-        <input type="email" id="email" name="email" placeholder="your@email.com" required>
-        
-        <label for="subject">Subject:</label>
-        <input type="text" id="subject" name="subject" placeholder="Enter the subject" required>
-        
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" placeholder="Your message here" required></textarea>
-        
-        <input type="hidden" name="_next" value="/#contact">
-        <button type="submit">Send</button>
-      </form>
-      <div class="social-links">
-        <a href="https://github.com/prithuldas" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-        <a href="https://linkedin.com/in/prithuldas" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-      </div>
+        <div class="container">
+            <h2>Contact</h2>
+            <p>I am always open to discussing research collaborations, CFD methodologies, or academic opportunities.</p>
+            <ul class="contact-list">
+                <li>
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:prithul.me.20220208087@aust.edu">prithul.me.20220208087@aust.edu</a>
+                </li>
+                <li>
+                    <i class="fab fa-linkedin"></i>
+                    <a href="https://linkedin.com/in/prithuldas" target="_blank">linkedin.com/in/prithuldas</a>
+                </li>
+                <li>
+                    <i class="fab fa-github"></i>
+                    <a href="https://github.com/prithuldas" target="_blank">github.com/prithuldas</a>
+                </li>
+                <!-- Added based on typical academic profiles, placeholder if not available -->
+                <li>
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>ResearchGate (Available upon request)</span>
+                </li>
+            </ul>
+        </div>
     </section>
-  </main>
-  <footer>© 2025 Prithul Das</footer>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Prithul Das. Hosted on GitHub Pages.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
