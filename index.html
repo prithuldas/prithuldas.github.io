@@ -137,6 +137,51 @@
             backdrop-filter: blur(4px);
         }
 
+        /* ─── SIMULATION GRID & HUD (HERO SECTION) ───────────────────── */
+        .sim-bg-grid {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            background-size: 100px 100px, 20px 20px;
+            background-image:
+                linear-gradient(to right, rgba(212, 212, 200, 0.6) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(212, 212, 200, 0.6) 1px, transparent 1px),
+                linear-gradient(to right, rgba(212, 212, 200, 0.25) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(212, 212, 200, 0.25) 1px, transparent 1px);
+            /* Radial mask to fade the grid out gracefully towards the edges */
+            mask-image: radial-gradient(circle at 70% 50%, black 20%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at 70% 50%, black 20%, transparent 80%);
+            pointer-events: none;
+        }
+        .sim-ui {
+            position: absolute; z-index: 1;
+            font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted);
+            letter-spacing: 0.1em; line-height: 1.6; opacity: 0.8;
+            pointer-events: none;
+        }
+        .sim-ui.top-left { 
+            top: 6rem; left: 2rem; 
+            border-left: 2px solid var(--accent-heat); padding-left: 0.75rem; 
+        }
+        .sim-ui.bottom-right { 
+            bottom: 2rem; right: 2rem; text-align: right; 
+            border-right: 2px solid var(--accent-flow); padding-right: 0.75rem;
+        }
+        .sim-crosshair {
+            position: absolute; z-index: 1; top: 50%; left: 70%;
+            width: 40px; height: 40px; transform: translate(-50%, -50%);
+            pointer-events: none; opacity: 0.4;
+        }
+        .sim-crosshair::before, .sim-crosshair::after {
+            content: ''; position: absolute; background: var(--text-muted);
+        }
+        .sim-crosshair::before { top: 19px; left: 0; right: 0; height: 1px; }
+        .sim-crosshair::after { left: 19px; top: 0; bottom: 0; width: 1px; }
+        .sim-crosshair .circle {
+            position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid var(--text-muted); border-radius: 50%;
+        }
+
         /* ─── GRID LAYOUT SYSTEM ─────────────────────────────────────── */
         .section {
             padding: 8rem 0;
@@ -329,6 +374,23 @@
 
     <!-- HERO SECTION -->
     <section class="hero" id="home">
+        <!-- Technical Grid Background -->
+        <div class="sim-bg-grid"></div>
+        
+        <!-- Live HUD Overlays -->
+        <div class="sim-ui top-left reveal">
+            [SYS_READY]<br>
+            DOMAIN: 1200x800_ORTHO<br>
+            SOLVER: EXPLICIT_DYN
+        </div>
+        <div class="sim-ui bottom-right reveal">
+            ITER: <span id="iter-count" style="color:var(--text-main);">0000</span><br>
+            T_STEP: 1E-6s
+        </div>
+        <div class="sim-crosshair reveal">
+            <div class="circle"></div>
+        </div>
+
         <!-- Canvas for dynamic flow lines -->
         <canvas id="flow-canvas"></canvas>
         
@@ -636,37 +698,54 @@
             constructor() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.vx = Math.random() * 2 + 0.5; // Base horizontal speed
-                this.vy = 0;
+                this.vx = Math.random() * 2.5 + 1; // Base horizontal speed (slightly faster)
+                this.vy = (Math.random() - 0.5) * 0.4; // Slight vertical drift
+                
+                // Track history to draw precise trails instead of using blurry background clears
+                this.history = [];
+                this.maxHistory = Math.floor(Math.random() * 40 + 15);
+                
                 this.alpha = Math.random() * 0.5 + 0.1;
-                // Assign a color randomly between heat (orange) and flow (cyan)
-                this.isHeat = Math.random() > 0.7;
+                this.isHeat = Math.random() > 0.75;
+                this.lineWidth = Math.random() * 1.5 + 0.5;
             }
 
             update() {
-                this.x += this.vx;
-                // Slight sine wave for turbulence
-                this.y += Math.sin(this.x * 0.01) * 0.5;
+                // Record current position
+                this.history.push({x: this.x, y: this.y});
+                if (this.history.length > this.maxHistory) {
+                    this.history.shift();
+                }
 
-                // Reset particle when it goes off screen
-                if (this.x > width) {
-                    this.x = -50;
+                this.x += this.vx;
+                // Sine wave for smooth turbulence
+                this.y += this.vy + Math.sin(this.x * 0.005) * 0.6;
+
+                // Reset particle when it goes off screen smoothly
+                if (this.x > width + 100) {
+                    this.x = -100;
                     this.y = Math.random() * height;
+                    this.history = [];
                 }
             }
 
             draw() {
+                if (this.history.length < 2) return;
+
                 ctx.beginPath();
-                ctx.moveTo(this.x, this.y);
-                ctx.lineTo(this.x - 30, this.y); // Trail length
-                
-                if (this.isHeat) {
-                    ctx.strokeStyle = `rgba(180, 83, 9, ${this.alpha * 0.8})`; /* Warm Amber */
-                } else {
-                    ctx.strokeStyle = `rgba(26, 58, 92, ${this.alpha * 0.4})`; /* Deep Navy */
+                ctx.moveTo(this.history[0].x, this.history[0].y);
+                for (let i = 1; i < this.history.length; i++) {
+                    ctx.lineTo(this.history[i].x, this.history[i].y);
                 }
                 
-                ctx.lineWidth = 1;
+                if (this.isHeat) {
+                    ctx.strokeStyle = `rgba(180, 83, 9, ${this.alpha})`; /* Warm Amber */
+                } else {
+                    ctx.strokeStyle = `rgba(26, 58, 92, ${this.alpha * 0.7})`; /* Deep Navy */
+                }
+                
+                ctx.lineWidth = this.lineWidth;
+                ctx.lineCap = "round";
                 ctx.stroke();
             }
         }
@@ -675,15 +754,23 @@
             particles.push(new Particle());
         }
 
+        let iterCount = 0;
+        const iterElement = document.getElementById('iter-count');
+
         function animate() {
-            // Fade effect to create motion blur trails - adapted for light mode
-            ctx.fillStyle = 'rgba(250, 250, 248, 0.2)'; 
-            ctx.fillRect(0, 0, width, height);
+            // Clear the canvas completely so the underlying CSS grid stays perfectly sharp
+            ctx.clearRect(0, 0, width, height);
 
             particles.forEach(p => {
                 p.update();
                 p.draw();
             });
+
+            // Animate the HUD iteration counter to make it feel alive
+            iterCount++;
+            if (iterCount % 4 === 0 && iterElement) {
+                iterElement.innerText = iterCount.toString().padStart(4, '0');
+            }
 
             requestAnimationFrame(animate);
         }
