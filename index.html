@@ -174,7 +174,7 @@
             border-right: 2px solid var(--accent-flow); padding-right: 0.75rem;
         }
         .sim-crosshair {
-            position: absolute; z-index: 1; top: 50%; left: 70%;
+            position: absolute; z-index: 1; top: 50%; left: 30%;
             width: 40px; height: 40px; transform: translate(-50%, -50%);
             pointer-events: none; opacity: 0.4;
         }
@@ -392,11 +392,11 @@
         <!-- Technical Grid Background -->
         <div class="sim-bg-grid"></div>
         
-        <!-- Live HUD Overlays -->
+        <!-- Live HUD Overlays (Updated for External Aerodynamics context) -->
         <div class="sim-ui top-left reveal">
             [SYS_READY]<br>
-            DOMAIN: MULTIPHASE_RTI<br>
-            SOLVER: rhoCentralFoam
+            DOMAIN: EXTERNAL_AERO<br>
+            SOLVER: pimpleFoam / DES
         </div>
         <div class="sim-ui bottom-right reveal">
             ITER: <span id="iter-count" style="color:var(--text-main);">0000</span><br>
@@ -420,12 +420,12 @@
             </div>
             
             <h1 class="hero-title reveal">
-                For the Love of<br>
-                <span class="serif italic text-heat">flow physics.</span>
+                Engineer of the<br>
+                <span class="serif italic text-heat">extreme environment.</span>
             </h1>
             
             <p class="hero-desc reveal" style="transition-delay: 0.1s;">
-                I study flow physics through equations and numerical simulations
+                I study the milliseconds where flows deform, heat, and destabilise structures — through numerical simulation, CFD, and physics-informed modelling.
             </p>
             
             <div class="hero-tags reveal" style="transition-delay: 0.2s;">
@@ -498,7 +498,7 @@
                         <span>OPENFOAM MULTIPHASE</span>
                         <span>Recent</span>
                     </div>
-                    <h3 class="proj-title">Rayleigh Taylor Instability (RTI) Simulation</h3>
+                    <h3 class="proj-title">Richtmyer-Meshkov Instability (RTI) Simulation</h3>
                     <div class="proj-affil">Independent CFD Research</div>
                     <ul class="proj-bullets">
                         <li>Simulated the interfacial instability between two fluids of different densities subject to acceleration using OpenFOAM's multiphase solvers.</li>
@@ -525,24 +525,6 @@
                     </ul>
                     <div class="proj-collab mono">
                         Target: Aerospace Science and Technology (Q1)
-                    </div>
-                </div>
-
-                <!-- Project 02 -->
-                <div class="project-card flow-accent reveal">
-                    <div class="proj-meta mono">
-                        <span class="text-flow">TRANSONIC FSI</span>
-                        <span>2025 – Present</span>
-                    </div>
-                    <h3 class="proj-title">ML-Assisted FSI Analysis of Shockwave–Boundary Layer Interaction</h3>
-                    <div class="proj-affil">AUST Applied Modelling and Simulation Lab (AASML)</div>
-                    <ul class="proj-bullets">
-                        <li>Investigating aerodynamic flutter of the NACA 64A010 airfoil at Ma = 0.796 using two-way FSI, benchmarked against Isogai flutter boundary datasets.</li>
-                        <li>Implementing a density-based solver with SST k–ω turbulence modelling and structural coupling via ANSYS Static Structural.</li>
-                        <li>Planning a machine-learning surrogate for rapid flutter boundary prediction.</li>
-                    </ul>
-                    <div class="proj-collab mono">
-                        Target: Journal of Fluids and Structures
                     </div>
                 </div>
 
@@ -600,14 +582,6 @@
                     <div class="pub-year mono text-heat">In Prog.</div>
                     <div>
                         <h3 class="pub-title">Aerothermodynamic Analysis of a Modified Orion Capsule Heat Shield with Parametric Sinusoidal Geometry in Hypersonic Flow</h3>
-                        <p class="pub-authors">Prithul Das et al.</p>
-                    </div>
-                </div>
-                
-                <div class="pub-item reveal">
-                    <div class="pub-year mono text-flow">In Prog.</div>
-                    <div>
-                        <h3 class="pub-title">Machine-Learning-Assisted FSI Analysis of Shockwave–Boundary Layer Interaction in Transonic Flow over NACA 64A010</h3>
                         <p class="pub-authors">Prithul Das et al.</p>
                     </div>
                 </div>
@@ -686,11 +660,11 @@
 
                 <div class="timeline-item reveal">
                     <div class="timeline-header">
-                        <span class="timeline-role">Communication & Recruitment Director</span>
-                        <span class="mono text-muted">2024 – 2026</span>
+                        <span class="timeline-role">Additional Secretary</span>
+                        <span class="mono text-muted">July 2026 – Present</span>
                     </div>
                     <div class="timeline-org">IMechE AUST Student Chapter</div>
-                    <p class="timeline-desc">Led official communications, event publicity, outreach, and recruitment planning for technical seminars and professional development programmes.</p>
+                    <p class="timeline-desc">Supervising the communication team, overseeing official outreach, event publicity, and strategic planning for technical seminars and professional development programmes.</p>
                 </div>
             </div>
         </div>
@@ -736,7 +710,7 @@
 
         revealElements.forEach(el => revealObserver.observe(el));
 
-        // --- BACKGROUND CANVAS (RAYLEIGH-TAYLOR / RICHTMYER-MESHKOV INSTABILITY) ---
+        // --- BACKGROUND CANVAS (VON KARMAN VORTEX STREET) ---
         const canvas = document.getElementById('flow-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
@@ -752,53 +726,76 @@
 
         class Particle {
             constructor() {
-                // True = Heavy fluid (falling/Amber), False = Light fluid (rising/Navy)
-                this.isHeavy = Math.random() > 0.5;
-                this.x = Math.random() * width;
-                
-                // Start heavy fluid higher up, light fluid lower down
-                this.y = this.isHeavy ? Math.random() * (height / 2) : height / 2 + Math.random() * (height / 2);
-                
+                this.reset();
+                this.x = Math.random() * width; // Initial random scatter across screen
+            }
+
+            reset() {
+                this.x = -Math.random() * 50 - 10; // Spawn slightly offscreen left
+                this.y = Math.random() * height;
                 this.history = [];
-                // Shorter trails for a more turbulent, mixing look
-                this.maxHistory = Math.floor(Math.random() * 25 + 10);
-                
-                this.alpha = Math.random() * 0.5 + 0.15;
-                this.lineWidth = Math.random() * 2 + 0.5;
-                this.phase = Math.random() * Math.PI * 2;
+                this.maxHistory = Math.floor(Math.random() * 50 + 20); // Smooth, long trails
+                this.alpha = Math.random() * 0.4 + 0.15;
+                this.lineWidth = Math.random() * 1.5 + 0.5;
+                this.speedFactor = Math.random() * 0.4 + 0.8;
+                // Subtly mix Flow (Navy) and Heat (Amber) for CFD visualization
+                this.isHeat = Math.random() > 0.85; 
             }
 
             update(time) {
-                // Record history for the trails
                 this.history.push({x: this.x, y: this.y});
                 if (this.history.length > this.maxHistory) {
                     this.history.shift();
                 }
 
-                // Base velocity: Heavy falls (+Y), Light rises (-Y)
-                let baseVy = this.isHeavy ? 1.2 : -1.2;
-                
-                // Simulate the "mushroom" curl / vortex field of the instability
-                // We use periodic functions based on spatial coordinates to create updrafts and downdrafts
-                let spatialFreq = 0.007;
-                let swirlX = Math.sin(this.y * spatialFreq + time) * Math.cos(this.x * spatialFreq);
-                let swirlY = Math.cos(this.x * spatialFreq + time) * Math.sin(this.y * spatialFreq);
-                
-                // Add horizontal dispersion (the mixing layer)
-                this.vx = Math.sin(this.y * 0.01 + this.phase) * 0.5 + swirlX * 1.5;
-                
-                // Combine gravity with the vortex field
-                this.vy = baseVy + swirlY * 2.5;
+                let cx = width * 0.3; // Cylinder horizontal position
+                let cy = height * 0.5; // Cylinder vertical position
+                let R = Math.min(width, height) * 0.12; // Cylinder radius
 
-                this.x += this.vx;
-                this.y += this.vy;
+                let dx = this.x - cx;
+                let dy = this.y - cy;
+                let r2 = dx*dx + dy*dy;
 
-                // Reset smoothly if they drift entirely off-screen vertically
-                if (this.y > height + 50 || this.y < -50 || this.x > width + 50 || this.x < -50) {
-                    this.x = Math.random() * width;
-                    // Respawn at their respective origin sides
-                    this.y = this.isHeavy ? -10 : height + 10;
-                    this.history = [];
+                let u = 2.5 * this.speedFactor; // Base free stream horizontal velocity
+                let v = 0;
+
+                if (r2 < R*R && r2 > 0) {
+                    // Deflect particles that spawn inside or hit the cylinder boundary
+                    let r = Math.sqrt(r2);
+                    u = (dx/r) * 3;
+                    v = (dy/r) * 3;
+                } else if (r2 >= R*R) {
+                    // Potential flow approximation (Doublet + Uniform Flow)
+                    let r = Math.sqrt(r2);
+                    let cosTh = dx / r;
+                    let sinTh = dy / r;
+                    
+                    let vr = u * (1 - (R*R)/r2) * cosTh;
+                    let vt = -u * (1 + (R*R)/r2) * sinTh;
+                    
+                    u = vr * cosTh - vt * sinTh;
+                    v = vr * sinTh + vt * cosTh;
+
+                    // Procedural Von Karman Vortex Shedding Wake
+                    if (dx > 0) {
+                        let wakeScale = Math.min(1, dx / (R * 1.5)); 
+                        let decay = Math.max(0, 1 - dx / (width * 0.7)); 
+                        let strouhal = 3.0; // Oscillation frequency of the shedding
+                        
+                        let vortex = Math.sin(dx * 0.015 - time * strouhal) * Math.cos(dy * 0.02);
+                        let envelope = Math.exp(-(dy*dy) / (R*R * 3.0)); // Confine vortices to wake width
+                        
+                        v += vortex * envelope * wakeScale * decay * 4.5 * this.speedFactor;
+                        u -= Math.abs(vortex) * envelope * wakeScale * decay * 1.8 * this.speedFactor;
+                    }
+                }
+
+                this.x += u;
+                this.y += v;
+
+                // Reset particle if it flows off-screen
+                if (this.x > width + 50 || this.y > height + 50 || this.y < -50) {
+                    this.reset();
                 }
             }
 
@@ -811,10 +808,10 @@
                     ctx.lineTo(this.history[i].x, this.history[i].y);
                 }
                 
-                if (this.isHeavy) {
-                    ctx.strokeStyle = `rgba(180, 83, 9, ${this.alpha})`; /* Warm Amber (Heavy Fluid) */
+                if (this.isHeat) {
+                    ctx.strokeStyle = `rgba(180, 83, 9, ${this.alpha})`; // Amber
                 } else {
-                    ctx.strokeStyle = `rgba(26, 58, 92, ${this.alpha * 0.7})`; /* Deep Navy (Light Fluid) */
+                    ctx.strokeStyle = `rgba(26, 58, 92, ${this.alpha * 0.6})`; // Deep Navy
                 }
                 
                 ctx.lineWidth = this.lineWidth;
@@ -823,7 +820,7 @@
             }
         }
 
-        for (let i = 0; i < 150; i++) {
+        for (let i = 0; i < 220; i++) {
             particles.push(new Particle());
         }
 
@@ -831,8 +828,28 @@
         const iterElement = document.getElementById('iter-count');
 
         function animate() {
-            // Clear the canvas completely so the underlying CSS grid stays perfectly sharp
+            // Keep background clear for crisp lines over the CSS grid
             ctx.clearRect(0, 0, width, height);
+
+            let cx = width * 0.3;
+            let cy = height * 0.5;
+            let R = Math.min(width, height) * 0.12;
+            
+            // Draw a subtle indication of the obstacle cylinder
+            ctx.beginPath();
+            ctx.arc(cx, cy, R, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(250, 250, 248, 0.7)'; // Mask out the grid slightly behind it
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(212, 212, 200, 0.8)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // Draw technical center-marks
+            ctx.beginPath();
+            ctx.moveTo(cx - R - 20, cy); ctx.lineTo(cx + R + 20, cy);
+            ctx.moveTo(cx, cy - R - 20); ctx.lineTo(cx, cy + R + 20);
+            ctx.strokeStyle = 'rgba(212, 212, 200, 0.5)';
+            ctx.stroke();
 
             let time = Date.now() * 0.0005;
 
@@ -841,7 +858,6 @@
                 p.draw();
             });
 
-            // Animate the HUD iteration counter to make it feel alive
             iterCount++;
             if (iterCount % 4 === 0 && iterElement) {
                 iterElement.innerText = iterCount.toString().padStart(4, '0');
