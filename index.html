@@ -102,6 +102,13 @@
             display: flex; gap: 2rem; margin-bottom: 3rem;
             border-bottom: 1px solid var(--line); padding-bottom: 1rem;
         }
+        .thesis-banner {
+            display: inline-block; padding: 0.5rem 1rem; margin-bottom: 2rem;
+            border: 1px solid var(--accent-heat); border-radius: 3px;
+            background: rgba(180, 83, 9, 0.05); color: var(--accent-heat);
+            font-family: var(--font-mono); font-size: 0.75rem; font-weight: 600;
+            letter-spacing: 0.05em; text-transform: uppercase;
+        }
         .hero-title {
             font-family: var(--font-sans);
             font-size: clamp(3rem, 7vw, 6rem);
@@ -148,7 +155,6 @@
                 linear-gradient(to bottom, rgba(212, 212, 200, 0.6) 1px, transparent 1px),
                 linear-gradient(to right, rgba(212, 212, 200, 0.25) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(212, 212, 200, 0.25) 1px, transparent 1px);
-            /* Radial mask to fade the grid out gracefully towards the edges */
             mask-image: radial-gradient(circle at 70% 50%, black 20%, transparent 80%);
             -webkit-mask-image: radial-gradient(circle at 70% 50%, black 20%, transparent 80%);
             pointer-events: none;
@@ -264,10 +270,11 @@
         }
         .project-card:hover::before { transform: scaleY(1); }
         
+        .project-card.featured::before { background: var(--accent-heat); transform: scaleY(1); }
         .project-card.flow-accent::before { background: var(--accent-flow); }
         .project-card.neutral-accent::before { background: var(--text-main); }
 
-        .proj-meta { display: flex; justify-content: space-between; margin-bottom: 1.5rem; }
+        .proj-meta { display: flex; justify-content: space-between; margin-bottom: 1.5rem; align-items: center; }
         .proj-title { font-size: 1.4rem; font-weight: 500; margin-bottom: 1rem; color: var(--text-main); }
         .proj-affil { font-size: 0.9rem; color: var(--accent-flow); margin-bottom: 1.5rem; font-weight: 500; }
         .proj-bullets { list-style: none; margin-bottom: 1.5rem; }
@@ -281,6 +288,11 @@
         .proj-collab { padding-top: 1.5rem; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--text-muted); }
         .proj-collab a { color: var(--accent-heat); text-decoration: none; font-weight: 500; }
         .proj-collab a:hover { text-decoration: underline; }
+
+        .badge-thesis {
+            background: var(--text-main); color: var(--bg-surface);
+            padding: 0.2rem 0.6rem; border-radius: 2px; font-weight: 600;
+        }
 
         /* ─── PUBLICATIONS ────────────────────────────────────────── */
         .pub-item {
@@ -380,11 +392,11 @@
         <!-- Technical Grid Background -->
         <div class="sim-bg-grid"></div>
         
-        <!-- Live HUD Overlays (Updated for Multiphase RTI context) -->
+        <!-- Live HUD Overlays -->
         <div class="sim-ui top-left reveal">
             [SYS_READY]<br>
             DOMAIN: MULTIPHASE_RTI<br>
-            SOLVER: interFoam / VOF
+            SOLVER: rhoCentralFoam
         </div>
         <div class="sim-ui bottom-right reveal">
             ITER: <span id="iter-count" style="color:var(--text-main);">0000</span><br>
@@ -402,6 +414,10 @@
                 <div>Based in: Dhaka, Bangladesh — GMT+6</div>
                 <div class="text-flow">Status: Prospective PhD Applicant</div>
             </div>
+
+            <div class="thesis-banner reveal">
+                Currently indexing: Scramjet Combustor CFD & Richtmyer-Meshkov Instability
+            </div>
             
             <h1 class="hero-title reveal">
                 Engineer of the<br>
@@ -415,7 +431,7 @@
             <div class="hero-tags reveal" style="transition-delay: 0.2s;">
                 <span class="tag">Computational Fluid Dynamics</span>
                 <span class="tag">Hypersonic Aerothermodynamics</span>
-                <span class="tag">Multiphase Flows & RTI</span>
+                <span class="tag">Multiphase Flows & RMI</span>
                 <span class="tag">Fluid–Structure Interaction</span>
             </div>
         </div>
@@ -457,7 +473,26 @@
             
             <div class="projects-container">
 
-                <!-- NEW Project: Richtmyer-Meshkov Instability -->
+                <!-- PINNED THESIS PROJECT -->
+                <div class="project-card featured reveal">
+                    <div class="proj-meta mono">
+                        <span class="text-heat">UNDERGRADUATE THESIS</span>
+                        <span class="badge-thesis">July 2026 – May 2027</span>
+                    </div>
+                    <h3 class="proj-title">A Geometry-Independent Mach-Atwood Design Map for Richtmyer-Meshkov-Instability-Driven Mixing Enhancement in Scramjet Combustors</h3>
+                    <div class="proj-affil">Dept. of Mechanical and Production Engineering, AUST &nbsp;·&nbsp; Supervisor: Prof. Dr. Fazlar Rahman</div>
+                    <ul class="proj-bullets">
+                        <li>Developing a reproducible Mach-Atwood ($M$-$A$) design map isolating the contribution of Richtmyer-Meshkov instability (RMI) to fuel-air mixing in scramjet combustors.</li>
+                        <li>Executing a parametric study within a 2D canonical planar domain, strictly decoupled from specific injector geometries, to solve for mixing-growth index, nonlinear-onset time ($\tau_{NL}$), and molecular mixing fraction ($\Theta$).</li>
+                        <li>Utilizing <strong>OpenFOAM v2512's</strong> density-based, explicit shock-capturing solver <code>rhoCentralFoam</code> with a Kurganov-Tadmor central-upwind flux scheme.</li>
+                        <li>Validating computational models against the classical air/SF<sub>6</sub> PLIF shock-tube experiments of Collins and Jacobs (2002) at $M=1.11$ and $M=1.21$.</li>
+                    </ul>
+                    <div class="proj-collab mono">
+                        Target: Reproducible Open-Source Computational Framework
+                    </div>
+                </div>
+
+                <!-- OpenFOAM RTI -->
                 <div class="project-card neutral-accent reveal">
                     <div class="proj-meta mono">
                         <span>OPENFOAM MULTIPHASE</span>
@@ -595,7 +630,7 @@
                     <ul class="skill-list">
                         <li>ANSYS Fluent</li>
                         <li>ANSYS Workbench</li>
-                        <li>OpenFOAM (Multiphase & VOF)</li>
+                        <li>OpenFOAM (rhoCentralFoam, VOF)</li>
                         <li>OpenModelica</li>
                         <li>Advanced Mesh Generation</li>
                     </ul>
