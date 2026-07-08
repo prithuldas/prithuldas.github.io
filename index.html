@@ -420,12 +420,12 @@
             </div>
             
             <h1 class="hero-title reveal">
-                Engineer of the<br>
-                <span class="serif italic text-heat">extreme environment.</span>
+                For the love of<br>
+                <span class="serif italic text-heat">flow physics.</span>
             </h1>
             
             <p class="hero-desc reveal" style="transition-delay: 0.1s;">
-                I study the milliseconds where flows deform, heat, and destabilise structures — through numerical simulation, CFD, and physics-informed modelling.
+                I study flow physics through governing equations and numerical simulation.
             </p>
             
             <div class="hero-tags reveal" style="transition-delay: 0.2s;">
@@ -735,9 +735,9 @@
                 this.y = Math.random() * height;
                 this.history = [];
                 this.maxHistory = Math.floor(Math.random() * 50 + 20); // Smooth, long trails
-                this.alpha = Math.random() * 0.4 + 0.15;
+                this.alpha = Math.random() * 0.25 + 0.1; // Reduced opacity for subtlety
                 this.lineWidth = Math.random() * 1.5 + 0.5;
-                this.speedFactor = Math.random() * 0.4 + 0.8;
+                this.speedFactor = Math.random() * 0.3 + 0.6; // Slowed down slightly
                 // Subtly mix Flow (Navy) and Heat (Amber) for CFD visualization
                 this.isHeat = Math.random() > 0.85; 
             }
@@ -820,7 +820,8 @@
             }
         }
 
-        for (let i = 0; i < 220; i++) {
+        // Reduced from 220 to 80 for a cleaner, less busy background
+        for (let i = 0; i < 80; i++) {
             particles.push(new Particle());
         }
 
