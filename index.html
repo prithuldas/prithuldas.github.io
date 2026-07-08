@@ -3,795 +3,692 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Academic portfolio of Prithul Das — Mechanical Engineering researcher specialising in CFD, hypersonic aerothermodynamics, and fluid–structure interaction at AUST, Bangladesh.">
-    <title>Prithul Das | Final Year Mechanical Engineering Student</title>
+    <meta name="description" content="Academic portfolio of Prithul Das — Mechanical Engineering researcher specialising in CFD, hypersonic aerothermodynamics, and fluid–structure interaction.">
+    <title>Prithul Das | Aerothermodynamics & CFD</title>
 
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- EB Garamond for display (academic authority), Inter for body (precision/clarity) -->
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* ─── TOKENS ─────────────────────────────────────────── */
+        /* ─── TOKENS & VARIABLES ─────────────────────────────────────────── */
         :root {
-            --bg:          #fafaf8;          /* warm off-white, not clinical */
-            --bg-alt:      #f2f1ed;          /* section divider tone */
-            --ink:         #18181b;          /* near-black for headers */
-            --ink-mid:     #3f3f46;          /* body text */
-            --ink-light:   #71717a;          /* meta, captions */
-            --rule:        #d4d4c8;          /* borders */
-            --accent:      #1a3a5c;          /* deep navy — scholarly authority */
-            --accent-warm: #b45309;          /* amber — single warm note for in-progress badges */
-            --font-display:'EB Garamond', Georgia, serif;
-            --font-body:   'Inter', system-ui, sans-serif;
-            --max-w: 900px;
-            --col-gap: 2.5rem;
+            --bg-base: #fafaf8; /* Warm off-white */
+            --bg-surface: #ffffff; /* Pure white for cards */
+            --line: #d4d4c8; /* Light borders */
+            --line-hover: #a1a1aa;
+            
+            --text-main: #18181b; /* Near black */
+            --text-muted: #71717a; /* Gray */
+            
+            --accent-heat: #b45309; /* Warm Amber */
+            --accent-flow: #1a3a5c; /* Deep Navy */
+            
+            --font-serif: 'EB Garamond', Georgia, serif;
+            --font-sans: 'Inter', system-ui, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --max-w: 1200px;
         }
 
-        /* ─── RESET ──────────────────────────────────────────── */
+        /* ─── RESET & GLOBAL ──────────────────────────────────────────── */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; background: var(--bg-base); color: var(--text-main); }
         body {
-            font-family: var(--font-body);
-            background: var(--bg);
-            color: var(--ink-mid);
-            line-height: 1.65;
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
-        a { color: var(--accent); text-decoration: none; transition: opacity .18s; }
-        a:hover { opacity: .72; text-decoration: underline; }
-        img { display: block; max-width: 100%; }
-
-        /* ─── LAYOUT HELPERS ─────────────────────────────────── */
+        ::selection { background: var(--accent-heat); color: #fff; }
+        a { color: inherit; text-decoration: none; transition: 0.3s ease; }
+        
+        /* ─── UTILITIES ──────────────────────────────────────────── */
         .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 2rem; }
-        .section { padding: 4rem 0; border-bottom: 1px solid var(--rule); }
-        .section:last-of-type { border-bottom: none; }
-
-        /* ─── TYPOGRAPHY ─────────────────────────────────────── */
-        h1, h2, h3 { color: var(--ink); line-height: 1.25; }
-        h1 {
-            font-family: var(--font-display);
-            font-size: 3rem;
-            font-weight: 500;
-            letter-spacing: -.02em;
-        }
-        h2 {
-            font-family: var(--font-display);
-            font-size: 1.55rem;
-            font-weight: 500;
-            margin-bottom: 1.75rem;
-        }
-        h2::after {
-            content: '';
-            display: block;
-            width: 2.5rem;
-            height: 2px;
-            background: var(--accent);
-            margin-top: .45rem;
-        }
-        h3 {
-            font-family: var(--font-body);
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--ink);
-            line-height: 1.4;
-        }
-        p { color: var(--ink-mid); margin-bottom: .9rem; font-size: .97rem; }
-        p:last-child { margin-bottom: 0; }
-        .meta {
-            font-size: .82rem;
-            color: var(--ink-light);
-            font-family: var(--font-body);
-            font-weight: 400;
-            letter-spacing: .01em;
-        }
-
-        /* ─── NAV ────────────────────────────────────────────── */
+        .mono { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .serif { font-family: var(--font-serif); }
+        .italic { font-style: italic; }
+        .text-muted { color: var(--text-muted); }
+        .text-heat { color: var(--accent-heat); }
+        .text-flow { color: var(--accent-flow); }
+        
+        /* ─── NAVIGATION ────────────────────────────────────────────── */
         nav {
-            position: sticky; top: 0; z-index: 100;
-            background: rgba(250,250,248,.96);
-            backdrop-filter: blur(6px);
-            border-bottom: 1px solid var(--rule);
-            padding: 1rem 0;
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            background: rgba(250, 250, 248, 0.85); /* Light blur */
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--line);
         }
         .nav-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            display: flex; justify-content: space-between; align-items: center;
+            height: 4rem;
         }
         .nav-brand {
-            font-family: var(--font-display);
-            font-size: 1.15rem;
-            font-weight: 500;
-            color: var(--ink);
-            letter-spacing: -.01em;
+            font-family: var(--font-serif); font-size: 1.3rem; font-weight: 500;
+            letter-spacing: 0.02em;
         }
-        .nav-links { display: flex; gap: 1.75rem; }
+        .nav-links { display: flex; gap: 2rem; }
         .nav-links a {
-            font-size: .875rem;
-            font-weight: 500;
-            color: var(--ink-light);
-            letter-spacing: .01em;
+            font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase;
+            color: var(--text-muted); letter-spacing: 0.05em;
         }
-        .nav-links a:hover { color: var(--accent); text-decoration: none; opacity: 1; }
+        .nav-links a:hover { color: var(--text-main); }
 
-        /* ─── HERO ───────────────────────────────────────────── */
+        /* ─── HERO SECTION ───────────────────────────────────────────── */
         .hero {
-            padding: 5rem 0 4.5rem;
-            border-bottom: 1px solid var(--rule);
-            /* Signature element: very subtle streamline SVG bg — flow field motif */
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='340'%3E%3Cg fill='none' stroke='%231a3a5c' stroke-width='.7' opacity='.06'%3E%3Cpath d='M0 200 Q200 140 400 180 T900 160'/%3E%3Cpath d='M0 230 Q220 165 440 205 T900 190'/%3E%3Cpath d='M0 260 Q240 190 480 230 T900 220'/%3E%3Cpath d='M0 170 Q180 115 380 155 T900 130'/%3E%3Cpath d='M0 140 Q160 90 360 125 T900 100'/%3E%3Cpath d='M0 290 Q260 215 520 255 T900 250'/%3E%3C/g%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right bottom;
-            background-size: 70% auto;
-        }
-        .hero-layout {
+            position: relative;
+            min-height: 100vh;
             display: flex;
-            align-items: flex-start;
-            gap: 3.5rem;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 4rem;
+            border-bottom: 1px solid var(--line);
+            overflow: hidden;
         }
-        .hero-text { flex: 1; min-width: 0; }
-        .hero-name { margin-bottom: .25rem; }
-        .hero-role {
-            font-family: var(--font-display);
-            font-size: 1.2rem;
-            font-style: italic;
-            color: var(--ink-mid);
-            margin-bottom: .5rem;
-            font-weight: 400;
+        #flow-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; opacity: 0.6;
         }
-        .hero-affil {
-            font-size: .92rem;
-            color: var(--ink-light);
-            margin-bottom: 1.6rem;
+        .hero-content {
+            position: relative; z-index: 10;
+            width: 100%; max-width: var(--max-w); margin: 0 auto; padding: 0 2rem;
         }
-        .hero-blurb {
-            font-size: 1rem;
-            color: var(--ink-mid);
-            max-width: 560px;
-            line-height: 1.7;
+        .hero-meta {
+            display: flex; gap: 2rem; margin-bottom: 3rem;
+            border-bottom: 1px solid var(--line); padding-bottom: 1rem;
+        }
+        .hero-title {
+            font-family: var(--font-sans);
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 300;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
             margin-bottom: 2rem;
         }
-        .hero-interests {
-            display: flex;
-            flex-wrap: wrap;
-            gap: .5rem;
-            margin-bottom: 2.25rem;
+        .hero-title .serif {
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            font-weight: 400;
         }
-        .chip {
+        .hero-desc {
+            max-width: 600px;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+        }
+        .hero-tags {
+            display: flex; flex-wrap: wrap; gap: 0.75rem;
+        }
+        .tag {
             display: inline-block;
-            font-size: .76rem;
-            font-weight: 500;
-            letter-spacing: .025em;
-            padding: .28rem .75rem;
-            border: 1px solid var(--rule);
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--line);
             border-radius: 2px;
-            color: var(--ink-mid);
-            background: transparent;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-main);
             text-transform: uppercase;
-        }
-        .hero-actions { display: flex; gap: .9rem; flex-wrap: wrap; }
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: .45rem;
-            padding: .6rem 1.3rem;
-            border-radius: 3px;
-            font-size: .875rem;
-            font-weight: 500;
-            transition: all .18s;
-            text-decoration: none;
-        }
-        .btn-primary {
-            background: var(--accent);
-            color: #fff;
-            border: 1px solid var(--accent);
-        }
-        .btn-primary:hover { background: #122840; opacity: 1; text-decoration: none; }
-        .btn-secondary {
-            background: transparent;
-            color: var(--ink);
-            border: 1px solid var(--rule);
-        }
-        .btn-secondary:hover { border-color: var(--ink-light); background: var(--bg-alt); opacity: 1; text-decoration: none; }
-
-        /* Portrait */
-        .hero-portrait {
-            width: 220px;
-            height: auto;
-            border: 1px solid var(--rule);
-            border-radius: 3px;
-            object-fit: cover;
-            flex-shrink: 0;
-            margin-top: .25rem;
+            letter-spacing: 0.05em;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(4px);
         }
 
-        /* ─── RESEARCH ENTRIES ───────────────────────────────── */
-        .entry-list { list-style: none; }
-        .entry {
-            padding: 1.5rem 0;
-            border-bottom: 1px solid var(--rule);
+        /* ─── GRID LAYOUT SYSTEM ─────────────────────────────────────── */
+        .section {
+            padding: 8rem 0;
+            border-bottom: 1px solid var(--line);
         }
-        .entry:last-child { border-bottom: none; }
-        .entry-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 1rem;
-            margin-bottom: .3rem;
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
         }
-        .entry-title { font-size: 1rem; font-weight: 600; color: var(--ink); line-height: 1.4; }
-        .entry-year {
-            font-size: .8rem;
-            color: var(--ink-light);
-            white-space: nowrap;
-            flex-shrink: 0;
-            padding-top: .1rem;
+        @media (min-width: 900px) {
+            .grid-layout {
+                grid-template-columns: 320px 1fr;
+                gap: 5rem;
+            }
         }
-        .entry-venue {
-            font-size: .875rem;
-            color: var(--ink-light);
-            font-style: italic;
-            margin-bottom: .6rem;
+        .sticky-sidebar {
+            position: sticky;
+            top: 7rem;
+            height: max-content;
         }
-        .entry-authors {
-            font-size: .82rem;
-            color: var(--ink-light);
-            margin-bottom: .6rem;
+        .section-num {
+            color: var(--accent-heat);
+            margin-bottom: 1rem;
+            display: block;
         }
-        .entry-body { font-size: .92rem; color: var(--ink-mid); line-height: 1.65; }
-        .entry-tags { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .7rem; }
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 400;
+            line-height: 1.1;
+        }
+        .section-title em { color: var(--text-muted); }
 
-        /* Badges */
-        .badge {
-            display: inline-block;
-            font-size: .72rem;
-            font-weight: 600;
-            letter-spacing: .04em;
-            text-transform: uppercase;
-            padding: .18rem .6rem;
-            border-radius: 2px;
+        /* ─── PROFILE ──────────────────────────────────────────── */
+        .profile-content p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
         }
-        .badge-presented {
-            background: #dbeafe;
-            color: #1e40af;
-            border: 1px solid #bfdbfe;
-        }
-        .badge-progress {
-            background: #fef3c7;
-            color: var(--accent-warm);
-            border: 1px solid #fde68a;
-        }
-        .badge-target {
-            background: transparent;
-            color: var(--ink-light);
-            border: 1px solid var(--rule);
-        }
-
-        /* ─── RESEARCH PROJECTS (3-COLUMN DETAIL LAYOUT) ─────── */
-        .project-entry {
-            padding: 1.75rem 0;
-            border-bottom: 1px solid var(--rule);
-        }
-        .project-entry:last-child { border-bottom: none; }
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            gap: 1rem;
-            margin-bottom: .25rem;
-        }
-        .project-title { font-size: 1.05rem; font-weight: 600; color: var(--ink); }
-        .project-period { font-size: .82rem; color: var(--ink-light); white-space: nowrap; }
-        .project-affil {
-            font-size: .875rem;
-            color: var(--accent);
-            font-weight: 500;
-            margin-bottom: .9rem;
-        }
-        .project-bullets { list-style: none; padding: 0; }
-        .project-bullets li {
-            font-size: .92rem;
-            color: var(--ink-mid);
-            line-height: 1.65;
-            padding-left: 1.1rem;
+        .profile-content strong { color: var(--text-main); font-weight: 500; }
+        .img-container {
+            margin-top: 3rem;
+            width: 100%;
+            max-width: 400px;
             position: relative;
-            margin-bottom: .45rem;
         }
-        .project-bullets li::before {
-            content: '—';
-            position: absolute;
-            left: 0;
-            color: var(--ink-light);
-            font-size: .85rem;
+        .img-container img {
+            width: 100%; height: auto; display: block;
+            filter: grayscale(20%) contrast(1.1); /* Less aggressive filter for light theme */
+            transition: 0.5s ease;
+            border: 1px solid var(--line);
+            border-radius: 3px;
         }
-        .project-collab {
-            margin-top: .8rem;
-            font-size: .82rem;
-            color: var(--ink-light);
+        .img-container:hover img {
+            filter: grayscale(0%) contrast(1);
+            border-color: var(--accent-flow);
         }
-        .project-collab strong { color: var(--ink-mid); font-weight: 500; }
 
-        /* ─── SKILLS ─────────────────────────────────────────── */
-        .skills-grid {
+        /* ─── RESEARCH / LAB ────────────────────────────────────────── */
+        .project-card {
+            padding: 2.5rem;
+            background: var(--bg-surface);
+            border: 1px solid var(--line);
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            transition: 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .project-card:hover {
+            border-color: var(--line-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); /* Subtle shadow for depth */
+        }
+        .project-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+            background: var(--accent-heat);
+            transform: scaleY(0); transform-origin: bottom; transition: 0.4s ease;
+        }
+        .project-card:hover::before { transform: scaleY(1); }
+        
+        .project-card.flow-accent::before { background: var(--accent-flow); }
+
+        .proj-meta { display: flex; justify-content: space-between; margin-bottom: 1.5rem; }
+        .proj-title { font-size: 1.4rem; font-weight: 500; margin-bottom: 1rem; color: var(--text-main); }
+        .proj-affil { font-size: 0.9rem; color: var(--accent-flow); margin-bottom: 1.5rem; font-weight: 500; }
+        .proj-bullets { list-style: none; margin-bottom: 1.5rem; }
+        .proj-bullets li {
+            position: relative; padding-left: 1.5rem; margin-bottom: 0.75rem;
+            color: var(--text-muted); font-size: 0.95rem;
+        }
+        .proj-bullets li::before {
+            content: '→'; position: absolute; left: 0; color: var(--line-hover); font-family: var(--font-mono);
+        }
+        .proj-collab { padding-top: 1.5rem; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--text-muted); }
+
+        /* ─── PUBLICATIONS ────────────────────────────────────────── */
+        .pub-item {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: 80px 1fr;
             gap: 2rem;
-        }
-        .skill-cat h4 {
-            font-size: .7rem;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: .85rem;
-            padding-bottom: .4rem;
-            border-bottom: 1px solid var(--rule);
-        }
-        .skill-cat ul { list-style: none; }
-        .skill-cat li {
-            font-size: .9rem;
-            color: var(--ink-mid);
-            margin-bottom: .3rem;
-            padding-left: 0;
-        }
-        .skill-note { font-size: .78rem; color: var(--ink-light); font-style: italic; }
-
-        /* ─── EXPERIENCE ─────────────────────────────────────── */
-        .exp-entry {
-            padding: 1.5rem 0;
-            border-bottom: 1px solid var(--rule);
-        }
-        .exp-entry:last-child { border-bottom: none; }
-        .exp-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            gap: 1rem;
-            margin-bottom: .2rem;
-        }
-        .exp-role { font-size: 1rem; font-weight: 600; color: var(--ink); }
-        .exp-period { font-size: .82rem; color: var(--ink-light); white-space: nowrap; }
-        .exp-org {
-            font-size: .9rem;
-            color: var(--accent);
-            font-weight: 500;
-            margin-bottom: .6rem;
-        }
-        .exp-body { font-size: .92rem; color: var(--ink-mid); line-height: 1.65; }
-
-        /* ─── EDUCATION ──────────────────────────────────────── */
-        .edu-block {
-            padding: 1.25rem 0;
-        }
-        .edu-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            gap: 1rem;
-            margin-bottom: .2rem;
-        }
-        .edu-degree { font-size: 1.05rem; font-weight: 600; color: var(--ink); }
-        .edu-period { font-size: .82rem; color: var(--ink-light); }
-        .edu-inst {
-            font-size: .95rem;
-            color: var(--ink-mid);
-            margin-bottom: .35rem;
-        }
-        .edu-courses {
-            font-size: .85rem;
-            color: var(--ink-light);
-            line-height: 1.6;
-        }
-
-        /* ─── CONTACT ────────────────────────────────────────── */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.25rem;
-            margin-top: 1rem;
-        }
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: .75rem;
-            font-size: .92rem;
-        }
-        .contact-item i { color: var(--ink-light); width: 18px; text-align: center; }
-
-        /* ─── CERTIFICATIONS ─────────────────────────────────── */
-        .cert-list { list-style: none; }
-        .cert-list li {
-            font-size: .92rem;
-            color: var(--ink-mid);
-            padding: .55rem 0;
-            border-bottom: 1px solid var(--rule);
-            display: flex;
-            align-items: baseline;
-            gap: .75rem;
-        }
-        .cert-list li:last-child { border-bottom: none; }
-        .cert-list li::before { content: '↗'; color: var(--ink-light); font-size: .8rem; flex-shrink: 0; }
-
-        /* ─── FOOTER ─────────────────────────────────────────── */
-        footer {
             padding: 2rem 0;
-            text-align: center;
-            font-size: .82rem;
-            color: var(--ink-light);
+            border-bottom: 1px solid var(--line);
+            transition: 0.3s ease;
+        }
+        .pub-item:hover { border-bottom-color: var(--accent-heat); }
+        .pub-year { color: var(--text-muted); }
+        .pub-title { font-size: 1.1rem; font-weight: 500; margin-bottom: 0.5rem; }
+        .pub-authors { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .pub-venue { font-family: var(--font-serif); font-style: italic; color: var(--accent-flow); font-size: 1rem; }
+        
+        /* ─── TOOLCHAIN / SKILLS ────────────────────────────────────── */
+        .skills-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 3rem;
+        }
+        .skill-cat-title {
+            font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-heat);
+            margin-bottom: 1.5rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem;
+        }
+        .skill-list { list-style: none; }
+        .skill-list li { margin-bottom: 0.75rem; color: var(--text-main); font-size: 0.95rem; }
+        .skill-note { color: var(--text-muted); font-size: 0.8rem; font-style: italic; }
+
+        /* ─── TIMELINE (SERVICE & EDUCATION) ────────────────────────── */
+        .timeline-item { margin-bottom: 3rem; }
+        .timeline-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem;}
+        .timeline-role { font-size: 1.2rem; font-weight: 500; }
+        .timeline-org { color: var(--text-muted); font-size: 1rem; margin-bottom: 1rem; margin-top: 0.5rem;}
+        .timeline-desc { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* ─── CONTACT FOOTER ────────────────────────────────────────── */
+        .footer { padding: 8rem 0 4rem; text-align: center; }
+        .footer h2 {
+            font-family: var(--font-serif); font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 400; margin-bottom: 3rem;
+        }
+        .contact-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-bottom: 5rem; }
+        
+        .btn-brutal {
+            display: inline-flex; align-items: center; gap: 0.75rem;
+            padding: 1rem 2rem;
+            border: 1px solid var(--line);
+            border-radius: 3px;
+            background: transparent;
+            color: var(--text-main);
+            font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase;
+            text-decoration: none; transition: 0.3s;
+            position: relative; overflow: hidden;
+        }
+        .btn-brutal:hover { background: var(--text-main); color: var(--bg-base); }
+        
+        .footer-copy { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-muted); border-top: 1px solid var(--line); padding-top: 2rem; }
+
+        /* ─── ANIMATIONS ────────────────────────────────────────── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* ─── RESPONSIVE ─────────────────────────────────────── */
-        @media (max-width: 720px) {
-            h1 { font-size: 2.2rem; }
-            .hero-layout { flex-direction: column-reverse; gap: 2rem; }
-            .hero-portrait { width: 140px; }
-            .hero-blurb { max-width: 100%; }
+        /* ─── RESPONSIVE ────────────────────────────────────────── */
+        @media (max-width: 768px) {
             .nav-links { display: none; }
-            .nav-inner { justify-content: center; }
-            .entry-top, .project-header, .exp-top, .edu-top { flex-direction: column; gap: .15rem; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            html { scroll-behavior: auto; }
-            * { transition: none !important; }
+            .hero-meta { flex-direction: column; gap: 0.5rem; }
+            .pub-item { grid-template-columns: 1fr; gap: 0.5rem; }
+            .pub-year { border-bottom: 1px solid var(--line); padding-bottom: 0.5rem; margin-bottom: 0.5rem; display: inline-block; }
         }
     </style>
 </head>
 <body>
 
-<!-- ── NAV ───────────────────────────────────────────────────── -->
-<nav>
-    <div class="wrap nav-inner">
-        <a href="#" class="nav-brand">Prithul Das</a>
-        <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#research">Research</a>
-            <a href="#publications">Publications</a>
-            <a href="#skills">Skills</a>
-            <a href="#experience">Service</a>
-            <a href="#contact">Contact</a>
-        </div>
-    </div>
-</nav>
-
-<!-- ── HERO ──────────────────────────────────────────────────── -->
-<section id="hero" class="hero">
-    <div class="wrap">
-        <div class="hero-layout">
-            <div class="hero-text">
-                <h1 class="hero-name">Prithul Das</h1>
-                <div class="hero-role">Final Year Mechanical Engineering Student</div>
-                <div class="hero-affil">
-                    B.Sc. Mechanical Engineering (Expected May 2027) &nbsp;·&nbsp;
-                    Ahsanullah University of Science and Technology, Dhaka, Bangladesh
-                </div>
-                <p class="hero-blurb">
-                    I study how high-speed flows deform, heat, and destabilise structures — 
-                    through numerical simulation and physics-informed modelling. 
-                    My current work spans hypersonic aerothermodynamics of re-entry vehicle heat shields 
-                    and transonic aeroelastic flutter, with a developing interest in ML-assisted CFD 
-                    for fluid–structure interaction problems.
-                </p>
-                <div class="hero-interests">
-                    <span class="chip">Computational Fluid Dynamics</span>
-                    <span class="chip">Hypersonic / Transonic Flow</span>
-                    <span class="chip">Fluid–Structure Interaction</span>
-                    <span class="chip">Aerothermodynamics</span>
-                    <span class="chip">Physics-Informed ML</span>
-                    <span class="chip">Thermal Systems</span>
-                </div>
-                <!--<div class="hero-actions">
-                    <a href="#contact" class="btn btn-primary">
-                        <i class="fas fa-envelope" style="font-size:.8rem;"></i> Contact
-                    </a>
-                    <a href="Prithul Das_CV.pdf" target="_blank" class="btn btn-secondary">
-                        <i class="fas fa-file-alt" style="font-size:.8rem;"></i> Download CV
-                    </a>
-                </div>-->
-            </div>
-            <img src="1000931297.jpg" alt="Prithul Das" class="hero-portrait">
-        </div>
-    </div>
-</section>
-
-<!-- ── ABOUT ──────────────────────────────────────────────────── -->
-<section id="about" class="section">
-    <div class="wrap">
-        <h2>About</h2>
-        <p>
-            I am a final-year undergraduate in Mechanical Engineering at AUST, Bangladesh, where I work at the 
-            intersection of high-speed flow physics and computational methods. My research focuses on problems 
-            where aerodynamics, heat transfer, and structural response are coupled — environments such as hypersonic 
-            re-entry, transonic flutter, and thermal protection systems, where the physics is both analytically rich 
-            and practically significant.
-        </p>
-        <p>
-            I co-founded the <strong>AUST Applied Modelling and Simulation Lab (AASML)</strong>, 
-            the first student-led computational research hub at AUST, to build a culture of simulation-based 
-            inquiry at my institution. Under the advisement of faculty supervisors, the lab mentors junior students 
-            in ANSYS Fluent workflows, mesh generation, and technical writing, and organises seminars with 
-            researchers from international institutions.
-        </p>
-        <p>
-            I am also conducting a component-level dynamic simulation of a District Cooling System (DCS) in 
-            OpenModelica under Prof. Dr. Dewan Hasan Ahmed, modelling chillers, distribution networks, and 
-            end-user thermal loads for energy optimisation. Alongside ANSYS Fluent, I am actively developing 
-            competency in OpenFOAM and PyTorch-based physics-informed neural networks (PINNs), building 
-            toward ML-assisted CFD workflows.
-        </p>
-        <p>
-            My long-term goal is to pursue a PhD in fluid dynamics, aerodynamics, or thermal systems, 
-            contributing to research that advances the simulation fidelity of extreme-environment flows.
-        </p>
-    </div>
-</section>
-
-<!-- ── RESEARCH PROJECTS ─────────────────────────────────────── -->
-<section id="research" class="section">
-    <div class="wrap">
-        <h2>Research</h2>
-
-        <div class="project-entry">
-            <div class="project-header">
-                <span class="project-title">Aerothermodynamic Analysis of a Modified Re-entry Vehicle Heat Shield with Parametric Sinusoidal Geometry</span>
-                <span class="project-period">2025 – Present</span>
-            </div>
-            <div class="project-affil">AUST Applied Modelling and Simulation Lab (AASML)</div>
-            <ul class="project-bullets">
-                <li>Conducting hypersonic flow analysis at Mach 3, 6, and 7 on a modified Orion capsule with a parametric sinusoidal heat-shield geometry (amplitude <em>A</em>, wave count <em>N</em>), extending the work of Juhany et al. (2024) — representing the first parametric study of sinusoidal modulation on re-entry vehicle heat shield faces.</li>
-                <li>Executing a 3×4 full-factorial case matrix to characterise the effects of forward-facing sinusoidal concavities on drag coefficient (<em>C</em><sub>d</sub>) and mean shock standoff distance; post-processing via stagnation streamline line probes in ANSYS Fluent.</li>
-                <li>Validated a corrected <em>C</em><sub>d</sub> ≈ 1.44 at Mach 6 (vs. baseline ≈ 1.30) after diagnosing and resolving a reference-area error.</li>
-            </ul>
-            <div class="project-collab"><strong>Collaborators:</strong> Ananya Jahan Chowdhury, Nowroze Farhan Ifraj (Virginia Tech), Mahir Labib Chowdhury &nbsp;·&nbsp; <strong>Target:</strong> <em>Aerospace Science and Technology</em> or <em>Results in Engineering</em> (Q1)</div>
-        </div>
-
-        <div class="project-entry">
-            <div class="project-header">
-                <span class="project-title">ML-Assisted FSI Analysis of Shockwave–Boundary Layer Interaction in Transonic Flow over NACA 64A010</span>
-                <span class="project-period">2025 – Present</span>
-            </div>
-            <div class="project-affil">AUST Applied Modelling and Simulation Lab (AASML)</div>
-            <ul class="project-bullets">
-                <li>Investigating aerodynamic flutter of the NACA 64A010 airfoil at Ma = 0.796 using two-way FSI, benchmarked against the Isogai (1981) flutter boundary dataset.</li>
-                <li>Implementing a density-based solver with SST <em>k</em>–ω turbulence modelling (compressibility correction), Sutherland viscosity law, and Pressure Far-Field boundary conditions in ANSYS Fluent; structural coupling via ANSYS Static Structural on a C-type structured mesh domain.</li>
-                <li>Optimising inflation layers and leading-edge sizing for accurate shockwave–boundary layer resolution in the transonic regime.</li>
-                <li>Planning a machine-learning surrogate for flutter prediction as a subsequent phase.</li>
-            </ul>
-            <div class="project-collab"><strong>Collaborators:</strong> Tanzim Al Islam, Sumit Saha, Shraban Sattwik (College of Aviation Technology) &nbsp;·&nbsp; <strong>Target:</strong> <em>Journal of Fluids and Structures</em> or <em>Computers &amp; Fluids</em></div>
-        </div>
-
-        <div class="project-entry">
-            <div class="project-header">
-                <span class="project-title">Dynamic Modelling of a District Cooling System (DCS)</span>
-                <span class="project-period">2025 – Present</span>
-            </div>
-            <div class="project-affil">Dept. of Mechanical and Production Engineering, AUST &nbsp;·&nbsp; Supervisor: Prof. Dr. Dewan Hasan Ahmed</div>
-            <ul class="project-bullets">
-                <li>Developing a component-level dynamic simulation in OpenModelica, modelling chillers, distribution networks, and end-user thermal loads for performance and energy optimisation analysis of district-scale cooling infrastructure.</li>
-            </ul>
-        </div>
-
-    </div>
-</section>
-
-<!-- ── PUBLICATIONS ───────────────────────────────────────────── -->
-<section id="publications" class="section">
-    <div class="wrap">
-        <h2>Publications</h2>
-
-        <!-- Conference papers -->
-        <h3 style="margin-bottom:1rem; color: var(--ink-light); font-size:.8rem; text-transform:uppercase; letter-spacing:.08em; font-weight:600;">Conference Proceedings</h3>
-        <ul class="entry-list">
-            <li class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Aerodynamic Comparison Analysis of Conic Rocket Fin Designs in Subsonic Flow</span>
-                    <span class="entry-year">2025</span>
-                </div>
-                <div class="entry-authors">Prithul Das, Mohammad Nafis Irfan, Salim Subah, Md. Samiul Haider Chowdhury</div>
-                <div class="entry-venue">3rd International Conference on Mechanical Engineering and Applied Sciences (ICMEAS 2025), MIST, Dhaka &nbsp;·&nbsp; July 2025</div>
-                <div class="entry-body">A CFD-based comparative study analysing the aerodynamic stability and drag characteristics of straight, trapezoidal, and shark-caved fin geometries on a conic rocket body in subsonic flow.</div>
-                <div class="entry-tags"><span class="badge badge-presented">Presented</span></div>
-            </li>
-            <li class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Experimental Performance Evaluation of an Earth Tunnel Heat Exchanger (ETHX) System for Space Cooling and Heating in Bangladesh</span>
-                    <span class="entry-year">2025</span>
-                </div>
-                <div class="entry-authors">Prithul Das, ASM Toufiq Imam, A.F.M. Fahmidur Rahman, Salim Subah, Nazmul Hossain Siam, M. Faisal Riyad</div>
-                <div class="entry-venue">6th Annual Paper Meet on Electrical Engineering (APMEE 2025), Institution of Engineers Bangladesh, Dhaka &nbsp;·&nbsp; December 2025</div>
-                <div class="entry-body">Experimental investigation into passive geothermal HVAC systems for space conditioning in hot and humid climates, evaluating cooling and heating performance of a buried heat exchanger configuration.</div>
-                <div class="entry-tags"><span class="badge badge-presented">Presented</span></div>
-            </li>
-        </ul>
-
-        <!-- Manuscripts in progress -->
-        <h3 style="margin-top:2.5rem; margin-bottom:1rem; color: var(--ink-light); font-size:.8rem; text-transform:uppercase; letter-spacing:.08em; font-weight:600;">Manuscripts in Progress</h3>
-        <ul class="entry-list">
-            <li class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Aerothermodynamic Analysis of a Modified Orion Capsule Heat Shield with Parametric Sinusoidal Geometry in Hypersonic Flow</span>
-                    <span class="entry-year">In Progress</span>
-                </div>
-                <div class="entry-authors">Prithul Das et al.</div>
-                <div class="entry-tags">
-                    <span class="badge badge-progress">In Progress</span>
-                    <span class="badge badge-target">Target: Aerospace Science and Technology · Results in Engineering (Q1)</span>
-                </div>
-            </li>
-            <li class="entry">
-                <div class="entry-top">
-                    <span class="entry-title">Machine-Learning-Assisted FSI Analysis of Shockwave–Boundary Layer Interaction in Transonic Flow over NACA 64A010</span>
-                    <span class="entry-year">In Progress</span>
-                </div>
-                <div class="entry-authors">Prithul Das et al.</div>
-                <div class="entry-tags">
-                    <span class="badge badge-progress">In Progress</span>
-                    <span class="badge badge-target">Target: Journal of Fluids and Structures · Computers &amp; Fluids</span>
-                </div>
-            </li>
-        </ul>
-
-    </div>
-</section>
-
-<!-- ── SKILLS ─────────────────────────────────────────────────── -->
-<section id="skills" class="section">
-    <div class="wrap">
-        <h2>Technical Skills</h2>
-        <div class="skills-grid">
-            <div class="skill-cat">
-                <h4>CFD & Simulation</h4>
-                <ul>
-                    <li>ANSYS Fluent</li>
-                    <li>ANSYS Workbench</li>
-                    <li>OpenFOAM <span class="skill-note">(in progress)</span></li>
-                    <li>OpenModelica</li>
-                    <li>Mesh Generation</li>
-                </ul>
-            </div>
-            <div class="skill-cat">
-                <h4>Programming</h4>
-                <ul>
-                    <li>Python</li>
-                    <li>MATLAB</li>
-                    <li>C</li>
-                    <li>PyTorch <span class="skill-note">(PINNs — developing)</span></li>
-                </ul>
-            </div>
-            <div class="skill-cat">
-                <h4>Scientific Computing</h4>
-                <ul>
-                    <li>NumPy &amp; SciPy</li>
-                    <li>Matplotlib</li>
-                </ul>
-            </div>
-            <div class="skill-cat">
-                <h4>CAD & Documentation</h4>
-                <ul>
-                    <li>SolidWorks</li>
-                    <li>LaTeX</li>
-                    <li>Microsoft Office</li>
-                </ul>
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="wrap nav-inner">
+            <div class="nav-brand">Prithul Das</div>
+            <div class="nav-links">
+                <a href="#profile">01 / Profile</a>
+                <a href="#lab">02 / Lab Output</a>
+                <a href="#publications">03 / Publications</a>
+                <a href="#trajectory">04 / Trajectory</a>
+                <a href="#contact">Contact</a>
             </div>
         </div>
-    </div>
-</section>
+    </nav>
 
-<!-- ── EXPERIENCE & SERVICE ───────────────────────────────────── -->
-<section id="experience" class="section">
-    <div class="wrap">
-        <h2>Leadership &amp; Service</h2>
-
-        <div class="exp-entry">
-            <div class="exp-top">
-                <span class="exp-role">Co-Founder</span>
-                <span class="exp-period">September 2025 – Present</span>
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <!-- Canvas for dynamic flow lines -->
+        <canvas id="flow-canvas"></canvas>
+        
+        <div class="hero-content">
+            <div class="hero-meta mono">
+                <div>Based in: Dhaka, Bangladesh — GMT+6</div>
+                <div class="text-flow">Status: Prospective PhD Applicant</div>
             </div>
-            <div class="exp-org">AUST Applied Modelling and Simulation Lab (AASML), Dhaka</div>
-            <div class="exp-body">
-                Co-founded the first student-driven computational research hub at AUST, operating under two faculty advisors with open membership across the department (<a href="https://www.aasmlab.org/" target="_blank">aasmlab.org</a>). Initiating CFD-based research in aerodynamics and thermal-fluid systems; mentoring junior students in ANSYS Fluent workflows, mesh generation, and technical writing. Organised a seminar on multiscale flow physics with a speaker from Michigan State University.
-            </div>
-        </div>
-
-        <div class="exp-entry">
-            <div class="exp-top">
-                <span class="exp-role">Communication Director</span>
-                <span class="exp-period">December 2025 – June 2026</span>
-            </div>
-            <div class="exp-org">IMechE AUST Student Chapter, Dhaka</div>
-            <div class="exp-body">
-                Lead official communications and technical event publicity; coordinate outreach and speaker engagement for chapter seminars and professional development programmes.
-            </div>
-        </div>
-
-        <div class="exp-entry">
-            <div class="exp-top">
-                <span class="exp-role">Recruitment Director</span>
-                <span class="exp-period">July – December 2025</span>
-            </div>
-            <div class="exp-org">IMechE AUST Student Chapter, Dhaka</div>
-            <div class="exp-body">
-                Directed recruitment planning, candidate evaluation, and organisational onboarding for new chapter members.
-            </div>
-        </div>
-
-        <div class="exp-entry">
-            <div class="exp-top">
-                <span class="exp-role">Junior Website &amp; Publicity Director</span>
-                <span class="exp-period">December 2024 – July 2025</span>
-            </div>
-            <div class="exp-org">IMechE AUST Student Chapter, Dhaka</div>
-            <div class="exp-body">
-                Managed event publicity and online presence for technical and professional programmes.
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- ── EDUCATION ──────────────────────────────────────────────── -->
-<section id="education" class="section">
-    <div class="wrap">
-        <h2>Education</h2>
-        <div class="edu-block">
-            <div class="edu-top">
-                <span class="edu-degree">B.Sc. in Mechanical Engineering</span>
-                <span class="edu-period">April 2022 – May 2027 (Expected)</span>
-            </div>
-            <div class="edu-inst">Ahsanullah University of Science and Technology (AUST), Dhaka, Bangladesh</div>
-            <div class="edu-courses">
-                <strong style="color:var(--ink-mid);">Relevant Coursework:</strong> Fluid Mechanics · Heat and Mass Transfer · Thermodynamics · Machine Design · Solid Mechanics · Multivariable Calculus · Differential Equations · Linear Algebra · Engineering Mathematics · Basic Programming
-            </div>
-            <p style="margin-top:.75rem; font-size:.875rem; color:var(--ink-light);">
-                <em>Final-year thesis commencing July 2026; expected focus in computational fluid dynamics or fluid–structure interaction.</em>
+            
+            <h1 class="hero-title reveal">
+                Engineer of the<br>
+                <span class="serif italic text-heat">extreme environment.</span>
+            </h1>
+            
+            <p class="hero-desc reveal" style="transition-delay: 0.1s;">
+                I study the milliseconds where flows deform, heat, and destabilise structures — through numerical simulation, CFD, and physics-informed modelling.
             </p>
-        </div>
-
-        <h3 style="margin-top:2rem; margin-bottom:1rem; color: var(--ink-light); font-size:.8rem; text-transform:uppercase; letter-spacing:.08em; font-weight:600;">Certifications &amp; Courses</h3>
-        <ul class="cert-list">
-            <li>A Hands-on Introduction to Engineering Simulations (2024) &nbsp;—&nbsp; CornellX / edX &nbsp;<span class="meta">Finite-element and CFD simulation fundamentals</span></li>
-            <li>OpenFOAM for Beginners (Ongoing) &nbsp;—&nbsp; Flowthermolab &nbsp;<span class="meta">Open-source CFD solver workflow and case setup</span></li>
-        </ul>
-    </div>
-</section>
-
-<!-- ── CONTACT ────────────────────────────────────────────────── -->
-<section id="contact" class="section">
-    <div class="wrap">
-        <h2>Contact</h2>
-        <p>I welcome correspondence about research collaborations, CFD methodologies, and graduate study opportunities.</p>
-        <div class="contact-grid">
-            <div class="contact-item">
-                <i class="fas fa-envelope"></i>
-                <a href="mailto:prithul.me.20220208087@aust.edu">prithul.me.20220208087@aust.edu</a>
-            </div>
-            <div class="contact-item">
-                <i class="fab fa-linkedin"></i>
-                <a href="https://linkedin.com/in/prithuldas" target="_blank">linkedin.com/in/prithuldas</a>
-            </div>
-            <!--<div class="contact-item">
-                <i class="fab fa-github"></i>
-                <a href="https://github.com/prithuldas" target="_blank">github.com/prithuldas</a>
-            </div>-->
-            <div class="contact-item">
-                <i class="fas fa-globe"></i>
-                <a href="https://prithuldas.github.io" target="_blank">prithuldas.github.io</a>
-            </div>
-            <div class="contact-item">
-                <i class="fas fa-graduation-cap"></i>
-                <span>ResearchGate — available upon request</span>
+            
+            <div class="hero-tags reveal" style="transition-delay: 0.2s;">
+                <span class="tag">Computational Fluid Dynamics</span>
+                <span class="tag">Hypersonic Aerothermodynamics</span>
+                <span class="tag">Fluid–Structure Interaction</span>
+                <span class="tag">Thermal Systems</span>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<footer>
-    <div class="wrap">
-        <p>&copy; 2026 Prithul Das &nbsp;·&nbsp; Dhaka, Bangladesh &nbsp;·&nbsp; Hosted on GitHub Pages</p>
-    </div>
-</footer>
+    <!-- 01 / PROFILE -->
+    <section id="profile" class="section wrap">
+        <div class="grid-layout">
+            <div class="sticky-sidebar">
+                <span class="section-num mono">— 01 / PROFILE</span>
+                <h2 class="section-title">Where heat, flow, and structures <em>collide.</em></h2>
+            </div>
+            <div class="profile-content reveal">
+                <p>
+                    I am a final-year undergraduate in Mechanical Engineering at AUST, Bangladesh, where I work at the intersection of high-speed flow physics and computational methods. My research focuses on problems where aerodynamics, heat transfer, and structural response are inextricably coupled.
+                </p>
+                <p>
+                    I co-founded the <strong>AUST Applied Modelling and Simulation Lab (AASML)</strong>, the first student-led computational research hub at my institution, to build a culture of simulation-based inquiry. Under faculty advisement, we mentor junior students in ANSYS Fluent workflows and mesh generation.
+                </p>
+                <p>
+                    Alongside ANSYS, I am developing competencies in OpenFOAM and building toward ML-assisted CFD workflows using PyTorch-based physics-informed neural networks (PINNs). My long-term trajectory points toward a PhD in fluid dynamics or thermal systems.
+                </p>
+                
+                <div class="img-container">
+                    <!-- Fallback to local image provided by user -->
+                    <img src="1000931297.jpg" alt="Prithul Das - Mechanical Engineering Student" onerror="this.style.display='none';">
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- 02 / LAB OUTPUT (RESEARCH) -->
+    <section id="lab" class="section wrap">
+        <div class="grid-layout">
+            <div class="sticky-sidebar">
+                <span class="section-num mono">— 02 / SIMULATION & LAB</span>
+                <h2 class="section-title">The physics <em>in motion.</em></h2>
+            </div>
+            
+            <div class="projects-container">
+                
+                <!-- Project 01 -->
+                <div class="project-card reveal">
+                    <div class="proj-meta mono">
+                        <span class="text-heat">HYPERSONIC REGIME</span>
+                        <span>2025 – Present</span>
+                    </div>
+                    <h3 class="proj-title">Aerothermodynamic Analysis of a Modified Re-entry Vehicle Heat Shield</h3>
+                    <div class="proj-affil">AUST Applied Modelling and Simulation Lab (AASML)</div>
+                    <ul class="proj-bullets">
+                        <li>Conducting hypersonic flow analysis at Mach 3, 6, and 7 on a modified Orion capsule with a parametric sinusoidal heat-shield geometry.</li>
+                        <li>Executing a 3×4 full-factorial case matrix to characterise the effects of forward-facing concavities on drag coefficient (Cd) and mean shock standoff distance.</li>
+                        <li>Validated a corrected Cd ≈ 1.44 at Mach 6 against baseline configurations.</li>
+                    </ul>
+                    <div class="proj-collab mono">
+                        Target: Aerospace Science and Technology (Q1)
+                    </div>
+                </div>
+
+                <!-- Project 02 -->
+                <div class="project-card flow-accent reveal">
+                    <div class="proj-meta mono">
+                        <span class="text-flow">TRANSONIC FSI</span>
+                        <span>2025 – Present</span>
+                    </div>
+                    <h3 class="proj-title">ML-Assisted FSI Analysis of Shockwave–Boundary Layer Interaction</h3>
+                    <div class="proj-affil">AUST Applied Modelling and Simulation Lab (AASML)</div>
+                    <ul class="proj-bullets">
+                        <li>Investigating aerodynamic flutter of the NACA 64A010 airfoil at Ma = 0.796 using two-way FSI, benchmarked against Isogai flutter boundary datasets.</li>
+                        <li>Implementing a density-based solver with SST k–ω turbulence modelling and structural coupling via ANSYS Static Structural.</li>
+                        <li>Planning a machine-learning surrogate for rapid flutter boundary prediction.</li>
+                    </ul>
+                    <div class="proj-collab mono">
+                        Target: Journal of Fluids and Structures
+                    </div>
+                </div>
+
+                <!-- Project 03 -->
+                <div class="project-card reveal">
+                    <div class="proj-meta mono">
+                        <span>SYSTEMS MODELLING</span>
+                        <span>2025 – Present</span>
+                    </div>
+                    <h3 class="proj-title">Dynamic Modelling of a District Cooling System (DCS)</h3>
+                    <div class="proj-affil">Dept. of Mechanical and Production Engineering, AUST</div>
+                    <ul class="proj-bullets">
+                        <li>Developing a component-level dynamic simulation in OpenModelica under Prof. Dr. Dewan Hasan Ahmed.</li>
+                        <li>Modelling chillers, distribution networks, and end-user thermal loads for performance and energy optimisation analysis.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 / PUBLICATIONS -->
+    <section id="publications" class="section wrap">
+        <div class="grid-layout">
+            <div class="sticky-sidebar">
+                <span class="section-num mono">— 03 / LITERATURE</span>
+                <h2 class="section-title">Published <em>work.</em></h2>
+            </div>
+            
+            <div class="publications-list">
+                
+                <h4 class="mono text-muted" style="margin-bottom: 1.5rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem;">Conference Proceedings</h4>
+                
+                <div class="pub-item reveal">
+                    <div class="pub-year mono">July 2025</div>
+                    <div>
+                        <h3 class="pub-title">Aerodynamic Comparison Analysis of Conic Rocket Fin Designs in Subsonic Flow</h3>
+                        <p class="pub-authors">Prithul Das, Mohammad Nafis Irfan, Salim Subah, Md. Samiul Haider Chowdhury</p>
+                        <p class="pub-venue">ICMEAS 2025 — MIST, Dhaka</p>
+                    </div>
+                </div>
+
+                <div class="pub-item reveal">
+                    <div class="pub-year mono">Dec 2025</div>
+                    <div>
+                        <h3 class="pub-title">Experimental Performance Evaluation of an Earth Tunnel Heat Exchanger (ETHX) System for Space Cooling and Heating</h3>
+                        <p class="pub-authors">Prithul Das, ASM Toufiq Imam, A.F.M. Fahmidur Rahman, et al.</p>
+                        <p class="pub-venue">APMEE 2025 — IEB, Dhaka</p>
+                    </div>
+                </div>
+
+                <h4 class="mono text-muted" style="margin-top: 4rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem;">Manuscripts in Progress</h4>
+
+                <div class="pub-item reveal">
+                    <div class="pub-year mono text-heat">In Prog.</div>
+                    <div>
+                        <h3 class="pub-title">Aerothermodynamic Analysis of a Modified Orion Capsule Heat Shield with Parametric Sinusoidal Geometry in Hypersonic Flow</h3>
+                        <p class="pub-authors">Prithul Das et al.</p>
+                    </div>
+                </div>
+                
+                <div class="pub-item reveal">
+                    <div class="pub-year mono text-flow">In Prog.</div>
+                    <div>
+                        <h3 class="pub-title">Machine-Learning-Assisted FSI Analysis of Shockwave–Boundary Layer Interaction in Transonic Flow over NACA 64A010</h3>
+                        <p class="pub-authors">Prithul Das et al.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 / TOOLCHAIN -->
+    <section id="toolchain" class="section wrap">
+        <div class="grid-layout">
+            <div class="sticky-sidebar">
+                <span class="section-num mono">— 04 / TOOLCHAIN</span>
+                <h2 class="section-title">What runs the <em>models.</em></h2>
+            </div>
+            
+            <div class="skills-grid reveal">
+                <div>
+                    <h4 class="skill-cat-title">CFD & SIMULATION</h4>
+                    <ul class="skill-list">
+                        <li>ANSYS Fluent</li>
+                        <li>ANSYS Workbench</li>
+                        <li>OpenFOAM <span class="skill-note">(Developing)</span></li>
+                        <li>OpenModelica</li>
+                        <li>Advanced Mesh Generation</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="skill-cat-title">COMPUTING & LOGIC</h4>
+                    <ul class="skill-list">
+                        <li>Python</li>
+                        <li>MATLAB</li>
+                        <li>C Programming</li>
+                        <li>PyTorch <span class="skill-note">(PINNs focus)</span></li>
+                        <li>NumPy & SciPy</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="skill-cat-title">DESIGN & DOCS</h4>
+                    <ul class="skill-list">
+                        <li>SolidWorks</li>
+                        <li>LaTeX Format</li>
+                        <li>Data Visualization (Matplotlib)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 05 / TRAJECTORY -->
+    <section id="trajectory" class="section wrap">
+        <div class="grid-layout">
+            <div class="sticky-sidebar">
+                <span class="section-num mono">— 05 / TRAJECTORY</span>
+                <h2 class="section-title">Service & <em>Academia.</em></h2>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-header">
+                        <span class="timeline-role">B.Sc. Mechanical Engineering</span>
+                        <span class="mono text-muted">May 2027 (Expected)</span>
+                    </div>
+                    <div class="timeline-org">Ahsanullah University of Science and Technology (AUST)</div>
+                    <p class="timeline-desc">Final-year thesis commencing July 2026; expected focus in computational fluid dynamics or fluid–structure interaction.</p>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-header">
+                        <span class="timeline-role">Co-Founder</span>
+                        <span class="mono text-muted">Sep 2025 – Present</span>
+                    </div>
+                    <div class="timeline-org">AUST Applied Modelling and Simulation Lab (AASML)</div>
+                    <p class="timeline-desc">Co-founded the first student-driven computational research hub at AUST. Initiating CFD-based research and mentoring junior students in ANSYS workflows.</p>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-header">
+                        <span class="timeline-role">Communication & Recruitment Director</span>
+                        <span class="mono text-muted">2024 – 2026</span>
+                    </div>
+                    <div class="timeline-org">IMechE AUST Student Chapter</div>
+                    <p class="timeline-desc">Led official communications, event publicity, outreach, and recruitment planning for technical seminars and professional development programmes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 06 / CONTACT FOOTER -->
+    <footer id="contact" class="footer wrap">
+        <span class="section-num mono" style="margin-bottom:2rem; display:block;">— 06 / NEXT STEPS</span>
+        <h2 class="reveal">Let's solve the next <em>boundary value.</em></h2>
+        
+        <div class="contact-links reveal">
+            <a href="mailto:prithul.me.20220208087@aust.edu" class="btn-brutal">
+                <i class="fas fa-envelope"></i> Email
+            </a>
+            <a href="https://linkedin.com/in/prithuldas" target="_blank" class="btn-brutal">
+                <i class="fab fa-linkedin-in"></i> LinkedIn
+            </a>
+            <a href="https://prithuldas.github.io" target="_blank" class="btn-brutal">
+                <i class="fas fa-globe"></i> Website
+            </a>
+        </div>
+        
+        <div class="footer-copy">
+            &copy; 2026 Prithul Das &nbsp;·&nbsp; Engineered in Dhaka, Bangladesh
+        </div>
+    </footer>
+
+    <!-- INTERACTIVITY SCRIPTS -->
+    <script>
+        // --- SCROLL REVEAL ANIMATION ---
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // --- BACKGROUND CANVAS (FLUID STREAMLINES) ---
+        const canvas = document.getElementById('flow-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = Math.random() * 2 + 0.5; // Base horizontal speed
+                this.vy = 0;
+                this.alpha = Math.random() * 0.5 + 0.1;
+                // Assign a color randomly between heat (orange) and flow (cyan)
+                this.isHeat = Math.random() > 0.7;
+            }
+
+            update() {
+                this.x += this.vx;
+                // Slight sine wave for turbulence
+                this.y += Math.sin(this.x * 0.01) * 0.5;
+
+                // Reset particle when it goes off screen
+                if (this.x > width) {
+                    this.x = -50;
+                    this.y = Math.random() * height;
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x - 30, this.y); // Trail length
+                
+                if (this.isHeat) {
+                    ctx.strokeStyle = `rgba(180, 83, 9, ${this.alpha * 0.8})`; /* Warm Amber */
+                } else {
+                    ctx.strokeStyle = `rgba(26, 58, 92, ${this.alpha * 0.4})`; /* Deep Navy */
+                }
+                
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        }
+
+        for (let i = 0; i < 100; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            // Fade effect to create motion blur trails - adapted for light mode
+            ctx.fillStyle = 'rgba(250, 250, 248, 0.2)'; 
+            ctx.fillRect(0, 0, width, height);
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
 </body>
 </html>
