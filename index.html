@@ -92,7 +92,7 @@
         #flow-canvas {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 0; opacity: 0.6;
+            z-index: 0; opacity: 0.75;
         }
         .hero-content {
             position: relative; z-index: 10;
@@ -231,7 +231,7 @@
         }
         .img-container img {
             width: 100%; height: auto; display: block;
-            filter: grayscale(20%) contrast(1.1); /* Less aggressive filter for light theme */
+            filter: grayscale(20%) contrast(1.1);
             transition: 0.5s ease;
             border: 1px solid var(--line);
             border-radius: 3px;
@@ -255,7 +255,7 @@
         .project-card:hover {
             border-color: var(--line-hover);
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05); /* Subtle shadow for depth */
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
         }
         .project-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
@@ -265,6 +265,7 @@
         .project-card:hover::before { transform: scaleY(1); }
         
         .project-card.flow-accent::before { background: var(--accent-flow); }
+        .project-card.neutral-accent::before { background: var(--text-main); }
 
         .proj-meta { display: flex; justify-content: space-between; margin-bottom: 1.5rem; }
         .proj-title { font-size: 1.4rem; font-weight: 500; margin-bottom: 1rem; color: var(--text-main); }
@@ -278,6 +279,8 @@
             content: '→'; position: absolute; left: 0; color: var(--line-hover); font-family: var(--font-mono);
         }
         .proj-collab { padding-top: 1.5rem; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--text-muted); }
+        .proj-collab a { color: var(--accent-heat); text-decoration: none; font-weight: 500; }
+        .proj-collab a:hover { text-decoration: underline; }
 
         /* ─── PUBLICATIONS ────────────────────────────────────────── */
         .pub-item {
@@ -377,21 +380,21 @@
         <!-- Technical Grid Background -->
         <div class="sim-bg-grid"></div>
         
-        <!-- Live HUD Overlays -->
+        <!-- Live HUD Overlays (Updated for Multiphase RTI context) -->
         <div class="sim-ui top-left reveal">
             [SYS_READY]<br>
-            DOMAIN: 1200x800_ORTHO<br>
-            SOLVER: EXPLICIT_DYN
+            DOMAIN: MULTIPHASE_RTI<br>
+            SOLVER: interFoam / VOF
         </div>
         <div class="sim-ui bottom-right reveal">
             ITER: <span id="iter-count" style="color:var(--text-main);">0000</span><br>
-            T_STEP: 1E-6s
+            T_STEP: 5E-5s
         </div>
         <div class="sim-crosshair reveal">
             <div class="circle"></div>
         </div>
 
-        <!-- Canvas for dynamic flow lines -->
+        <!-- Canvas for dynamic flow lines (Now simulating R-T / R-M Instability) -->
         <canvas id="flow-canvas"></canvas>
         
         <div class="hero-content">
@@ -412,8 +415,8 @@
             <div class="hero-tags reveal" style="transition-delay: 0.2s;">
                 <span class="tag">Computational Fluid Dynamics</span>
                 <span class="tag">Hypersonic Aerothermodynamics</span>
+                <span class="tag">Multiphase Flows & RTI</span>
                 <span class="tag">Fluid–Structure Interaction</span>
-                <span class="tag">Thermal Systems</span>
             </div>
         </div>
     </section>
@@ -433,7 +436,7 @@
                     I co-founded the <strong>AUST Applied Modelling and Simulation Lab (AASML)</strong>, the first student-led computational research hub at my institution, to build a culture of simulation-based inquiry. Under faculty advisement, we mentor junior students in ANSYS Fluent workflows and mesh generation.
                 </p>
                 <p>
-                    Alongside ANSYS, I am developing competencies in OpenFOAM and building toward ML-assisted CFD workflows using PyTorch-based physics-informed neural networks (PINNs). My long-term trajectory points toward a PhD in fluid dynamics or thermal systems.
+                    Alongside ANSYS, I am developing competencies in OpenFOAM (specifically capturing interfacial phenomena like Richtmyer-Meshkov instabilities) and building toward ML-assisted CFD workflows using PyTorch-based physics-informed neural networks (PINNs). My long-term trajectory points toward a PhD in fluid dynamics or thermal systems.
                 </p>
                 
                 <div class="img-container">
@@ -453,6 +456,24 @@
             </div>
             
             <div class="projects-container">
+
+                <!-- NEW Project: Richtmyer-Meshkov Instability -->
+                <div class="project-card neutral-accent reveal">
+                    <div class="proj-meta mono">
+                        <span>OPENFOAM MULTIPHASE</span>
+                        <span>Recent</span>
+                    </div>
+                    <h3 class="proj-title">Richtmyer-Meshkov Instability (RTI) Simulation</h3>
+                    <div class="proj-affil">Independent CFD Research</div>
+                    <ul class="proj-bullets">
+                        <li>Simulated the interfacial instability between two fluids of different densities subject to acceleration using OpenFOAM's multiphase solvers.</li>
+                        <li>Captured the evolution of initial perturbations into complex, characteristic mushroom-like vortex structures over time.</li>
+                        <li>Post-processed multiphase volume fraction (VOF) and pressure gradients using ParaView to visualize the turbulent mixing layer.</li>
+                    </ul>
+                    <div class="proj-collab mono">
+                        Repository: <a href="https://github.com/prithuldas/CFD-Portfolio" target="_blank">github.com/prithuldas/CFD-Portfolio <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
                 
                 <!-- Project 01 -->
                 <div class="project-card reveal">
@@ -574,7 +595,7 @@
                     <ul class="skill-list">
                         <li>ANSYS Fluent</li>
                         <li>ANSYS Workbench</li>
-                        <li>OpenFOAM <span class="skill-note">(Developing)</span></li>
+                        <li>OpenFOAM (Multiphase & VOF)</li>
                         <li>OpenModelica</li>
                         <li>Advanced Mesh Generation</li>
                     </ul>
@@ -593,8 +614,8 @@
                     <h4 class="skill-cat-title">DESIGN & DOCS</h4>
                     <ul class="skill-list">
                         <li>SolidWorks</li>
+                        <li>ParaView (Data Viz)</li>
                         <li>LaTeX Format</li>
-                        <li>Data Visualization (Matplotlib)</li>
                     </ul>
                 </div>
             </div>
@@ -680,7 +701,7 @@
 
         revealElements.forEach(el => revealObserver.observe(el));
 
-        // --- BACKGROUND CANVAS (FLUID STREAMLINES) ---
+        // --- BACKGROUND CANVAS (RAYLEIGH-TAYLOR / RICHTMYER-MESHKOV INSTABILITY) ---
         const canvas = document.getElementById('flow-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
@@ -696,35 +717,52 @@
 
         class Particle {
             constructor() {
+                // True = Heavy fluid (falling/Amber), False = Light fluid (rising/Navy)
+                this.isHeavy = Math.random() > 0.5;
                 this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = Math.random() * 2.5 + 1; // Base horizontal speed (slightly faster)
-                this.vy = (Math.random() - 0.5) * 0.4; // Slight vertical drift
                 
-                // Track history to draw precise trails instead of using blurry background clears
+                // Start heavy fluid higher up, light fluid lower down
+                this.y = this.isHeavy ? Math.random() * (height / 2) : height / 2 + Math.random() * (height / 2);
+                
                 this.history = [];
-                this.maxHistory = Math.floor(Math.random() * 40 + 15);
+                // Shorter trails for a more turbulent, mixing look
+                this.maxHistory = Math.floor(Math.random() * 25 + 10);
                 
-                this.alpha = Math.random() * 0.5 + 0.1;
-                this.isHeat = Math.random() > 0.75;
-                this.lineWidth = Math.random() * 1.5 + 0.5;
+                this.alpha = Math.random() * 0.5 + 0.15;
+                this.lineWidth = Math.random() * 2 + 0.5;
+                this.phase = Math.random() * Math.PI * 2;
             }
 
-            update() {
-                // Record current position
+            update(time) {
+                // Record history for the trails
                 this.history.push({x: this.x, y: this.y});
                 if (this.history.length > this.maxHistory) {
                     this.history.shift();
                 }
 
-                this.x += this.vx;
-                // Sine wave for smooth turbulence
-                this.y += this.vy + Math.sin(this.x * 0.005) * 0.6;
+                // Base velocity: Heavy falls (+Y), Light rises (-Y)
+                let baseVy = this.isHeavy ? 1.2 : -1.2;
+                
+                // Simulate the "mushroom" curl / vortex field of the instability
+                // We use periodic functions based on spatial coordinates to create updrafts and downdrafts
+                let spatialFreq = 0.007;
+                let swirlX = Math.sin(this.y * spatialFreq + time) * Math.cos(this.x * spatialFreq);
+                let swirlY = Math.cos(this.x * spatialFreq + time) * Math.sin(this.y * spatialFreq);
+                
+                // Add horizontal dispersion (the mixing layer)
+                this.vx = Math.sin(this.y * 0.01 + this.phase) * 0.5 + swirlX * 1.5;
+                
+                // Combine gravity with the vortex field
+                this.vy = baseVy + swirlY * 2.5;
 
-                // Reset particle when it goes off screen smoothly
-                if (this.x > width + 100) {
-                    this.x = -100;
-                    this.y = Math.random() * height;
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Reset smoothly if they drift entirely off-screen vertically
+                if (this.y > height + 50 || this.y < -50 || this.x > width + 50 || this.x < -50) {
+                    this.x = Math.random() * width;
+                    // Respawn at their respective origin sides
+                    this.y = this.isHeavy ? -10 : height + 10;
                     this.history = [];
                 }
             }
@@ -738,10 +776,10 @@
                     ctx.lineTo(this.history[i].x, this.history[i].y);
                 }
                 
-                if (this.isHeat) {
-                    ctx.strokeStyle = `rgba(180, 83, 9, ${this.alpha})`; /* Warm Amber */
+                if (this.isHeavy) {
+                    ctx.strokeStyle = `rgba(180, 83, 9, ${this.alpha})`; /* Warm Amber (Heavy Fluid) */
                 } else {
-                    ctx.strokeStyle = `rgba(26, 58, 92, ${this.alpha * 0.7})`; /* Deep Navy */
+                    ctx.strokeStyle = `rgba(26, 58, 92, ${this.alpha * 0.7})`; /* Deep Navy (Light Fluid) */
                 }
                 
                 ctx.lineWidth = this.lineWidth;
@@ -750,7 +788,7 @@
             }
         }
 
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 150; i++) {
             particles.push(new Particle());
         }
 
@@ -761,8 +799,10 @@
             // Clear the canvas completely so the underlying CSS grid stays perfectly sharp
             ctx.clearRect(0, 0, width, height);
 
+            let time = Date.now() * 0.0005;
+
             particles.forEach(p => {
-                p.update();
+                p.update(time);
                 p.draw();
             });
 
