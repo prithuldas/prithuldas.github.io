@@ -133,15 +133,17 @@
         .tag {
             display: inline-block;
             padding: 0.4rem 0.8rem;
-            border: 1px solid var(--line);
+            border: 1px solid var(--accent-flow);
             border-radius: 2px;
             font-family: var(--font-mono);
             font-size: 0.7rem;
+            font-weight: 500;
             color: var(--text-main);
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(4px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         /* ─── SIMULATION GRID & HUD (HERO SECTION) ───────────────────── */
@@ -277,6 +279,8 @@
         .proj-meta { display: flex; justify-content: space-between; margin-bottom: 1.5rem; align-items: center; }
         .proj-title { font-size: 1.4rem; font-weight: 500; margin-bottom: 1rem; color: var(--text-main); }
         .proj-affil { font-size: 0.9rem; color: var(--accent-flow); margin-bottom: 1.5rem; font-weight: 500; }
+        .proj-affil a { text-decoration: underline; text-underline-offset: 3px; transition: 0.2s ease; }
+        .proj-affil a:hover { color: var(--accent-heat); }
         .proj-bullets { list-style: none; margin-bottom: 1.5rem; }
         .proj-bullets li {
             position: relative; padding-left: 1.5rem; margin-bottom: 0.75rem;
@@ -286,8 +290,8 @@
             content: '→'; position: absolute; left: 0; color: var(--line-hover); font-family: var(--font-mono);
         }
         .proj-collab { padding-top: 1.5rem; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--text-muted); }
-        .proj-collab a { color: var(--accent-heat); text-decoration: none; font-weight: 500; }
-        .proj-collab a:hover { text-decoration: underline; }
+        .proj-collab a { color: var(--accent-heat); text-decoration: none; font-weight: 500; transition: 0.2s ease;}
+        .proj-collab a:hover { color: var(--text-main); }
 
         .badge-thesis {
             background: var(--text-main); color: var(--bg-surface);
@@ -326,6 +330,8 @@
         .timeline-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem;}
         .timeline-role { font-size: 1.2rem; font-weight: 500; }
         .timeline-org { color: var(--text-muted); font-size: 1rem; margin-bottom: 1rem; margin-top: 0.5rem;}
+        .timeline-org a { color: var(--accent-flow); font-weight: 500; text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 4px; transition: 0.2s;}
+        .timeline-org a:hover { color: var(--accent-heat); text-decoration-color: var(--accent-heat); }
         .timeline-desc { color: var(--text-muted); font-size: 0.95rem; }
 
         /* ─── CONTACT FOOTER ────────────────────────────────────────── */
@@ -381,7 +387,8 @@
                 <a href="#profile">01 / Profile</a>
                 <a href="#lab">02 / Lab Output</a>
                 <a href="#publications">03 / Publications</a>
-                <a href="#trajectory">04 / Trajectory</a>
+                <a href="#academia">04 / Academia</a>
+                <a href="#service">05 / Service</a>
                 <a href="#contact">Contact</a>
             </div>
         </div>
@@ -412,7 +419,7 @@
         <div class="hero-content">
             <div class="hero-meta mono">
                 <div>Based in: Dhaka, Bangladesh — GMT+6</div>
-                <div class="text-flow">Status: Prospective PhD Applicant</div>
+                <div class="text-flow">Status: Final Year Mechanical Engineering Student | Prospective PhD Applicant</div>
             </div>
 
             <div class="thesis-banner reveal">
@@ -431,8 +438,7 @@
             <div class="hero-tags reveal" style="transition-delay: 0.2s;">
                 <span class="tag">Computational Fluid Dynamics</span>
                 <span class="tag">Hypersonic Aerothermodynamics</span>
-                <span class="tag">Multiphase Flows & RMI</span>
-                <span class="tag">Fluid–Structure Interaction</span>
+                <span class="tag">Multiphase Instabilities (RTI & RMI)</span>
             </div>
         </div>
     </section>
@@ -446,13 +452,13 @@
             </div>
             <div class="profile-content reveal">
                 <p>
-                    I am a final-year undergraduate in Mechanical Engineering at AUST, Bangladesh, where I work at the intersection of high-speed flow physics and computational methods. My research focuses on problems where aerodynamics, heat transfer, and structural response are inextricably coupled.
+                    I am a final-year undergraduate in Mechanical Engineering at AUST, Bangladesh, where I work at the intersection of high-speed flow physics and computational methods. My research focuses on problems where aerodynamics, heat transfer, and multiphase mixing are inextricably coupled.
                 </p>
                 <p>
-                    I co-founded the <strong>AUST Applied Modelling and Simulation Lab (AASML)</strong>, the first student-led computational research hub at my institution, to build a culture of simulation-based inquiry. Under faculty advisement, we mentor junior students in ANSYS Fluent workflows and mesh generation.
+                    I co-founded the <strong>AUST Applied Modelling and Simulation Lab (AASML)</strong>, the first student-led computational research hub at my institution, to build a culture of simulation-based inquiry. Under faculty advisement, we mentor junior students in foundational CFD workflows and mesh generation.
                 </p>
                 <p>
-                    Alongside ANSYS, I am developing competencies in OpenFOAM (specifically capturing interfacial phenomena like Richtmyer-Meshkov instabilities) and building toward ML-assisted CFD workflows using PyTorch-based physics-informed neural networks (PINNs). My long-term trajectory points toward a PhD in fluid dynamics or thermal systems.
+                    Alongside commercial solvers, I am developing competencies in OpenFOAM, with a growing fascination for multiphase interfacial phenomena such as Rayleigh-Taylor (RTI) and Richtmyer-Meshkov (RMI) instabilities. I am continually advancing my expertise in custom numerical tools, and my long-term trajectory points toward a PhD in fluid dynamics or thermal systems.
                 </p>
                 
                 <div class="img-container">
@@ -476,15 +482,15 @@
                 <!-- PINNED THESIS PROJECT -->
                 <div class="project-card featured reveal">
                     <div class="proj-meta mono">
-                        <span class="text-heat">UNDERGRADUATE THESIS</span>
+                        <span class="text-heat"><strong>UNDERGRADUATE THESIS</strong></span>
                         <span class="badge-thesis">July 2026 – May 2027</span>
                     </div>
-                    <h3 class="proj-title">A Geometry-Independent Mach-Atwood Design Map for Richtmyer-Meshkov-Instability-Driven Mixing Enhancement in Scramjet Combustors</h3>
-                    <div class="proj-affil">Dept. of Mechanical and Production Engineering, AUST &nbsp;·&nbsp; Supervisor: Prof. Dr. Fazlar Rahman</div>
+                    <h3 class="proj-title">Geometry-Agnostic Computational Framework for Instability-Driven Mixing in Supersonic Flows</h3>
+                    <div class="proj-affil">Dept. of Mechanical and Production Engineering, AUST &nbsp;·&nbsp; Supervisor: <a href="https://www.aust.edu/mpe/faculty_member/dr_fazlar_rahman" target="_blank">Prof. Dr. Fazlar Rahman</a></div>
                     <ul class="proj-bullets">
-                        <li>Investigating passive fuel-air mixing enhancement in scramjet combustors driven by Richtmyer-Meshkov instability (RMI) and baroclinic vorticity generation.</li>
-                        <li>Developing a geometry-agnostic computational framework in <strong>OpenFOAM</strong> to parameterize instability growth across varying Mach and Atwood numbers.</li>
-                        <li><em>Specific parametric matrices, extraction metrics, and numerical configurations are currently withheld pending future journal publication.</em></li>
+                        <li>Developing a novel computational framework in <strong>OpenFOAM</strong> to evaluate passive fuel-air mixing enhancement in scramjet combustion regimes driven by Richtmyer-Meshkov Instability (RMI).</li>
+                        <li>Parametrically investigating interfacial instability growth rates and baroclinic vorticity generation across varying kinematic and thermodynamic initial conditions.</li>
+                        <li><span class="text-muted"><i class="fas fa-lock" style="font-size:0.85em; margin-right:0.3rem;"></i> <em>Methodology, parametric matrices, and numerical configurations are currently under embargo pending academic publication.</em></span></li>
                     </ul>
                     <div class="proj-collab mono">
                         Target: Reproducible Open-Source Computational Framework
@@ -524,7 +530,7 @@
                         <li>Validated a corrected Cd ≈ 1.44 at Mach 6 against baseline configurations.</li>
                     </ul>
                     <div class="proj-collab mono">
-                        Target: Aerospace Science and Technology (Q1)
+                        <a href="https://www.aasmlab.org/research/research-groups/nextgen-energy-systems-group/atmospheric-re-entry-vehicle" target="_blank">View Project on AASML <i class="fas fa-arrow-right"></i></a> &nbsp;|&nbsp; Target: Aerospace Science and Technology (Q1)
                     </div>
                 </div>
 
@@ -535,10 +541,10 @@
                         <span>2025 – Present</span>
                     </div>
                     <h3 class="proj-title">Dynamic Modelling of a District Cooling System (DCS)</h3>
-                    <div class="proj-affil">Dept. of Mechanical and Production Engineering, AUST</div>
+                    <div class="proj-affil">Dept. of Mechanical and Production Engineering, AUST &nbsp;·&nbsp; Supervisor: <a href="https://www.aust.edu/mpe/faculty_member/dr_dewan_hasan_ahmed" target="_blank">Prof. Dr. Dewan Hasan Ahmed</a></div>
                     <ul class="proj-bullets">
-                        <li>Developing a component-level dynamic simulation in OpenModelica under Prof. Dr. Dewan Hasan Ahmed.</li>
-                        <li>Modelling chillers, distribution networks, and end-user thermal loads for performance and energy optimisation analysis.</li>
+                        <li>Developing a component-level dynamic simulation in OpenModelica to analyze performance and energy optimization.</li>
+                        <li>Modelling chillers, distribution networks, and end-user thermal loads for large-scale cooling infrastructure.</li>
                     </ul>
                 </div>
 
@@ -615,7 +621,6 @@
                         <li>Python</li>
                         <li>MATLAB</li>
                         <li>C Programming</li>
-                        <li>PyTorch <span class="skill-note">(PINNs focus)</span></li>
                         <li>NumPy & SciPy</li>
                     </ul>
                 </div>
@@ -625,18 +630,19 @@
                         <li>SolidWorks</li>
                         <li>ParaView (Data Viz)</li>
                         <li>LaTeX Format</li>
+                        <li>Microsoft Office</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 05 / TRAJECTORY -->
-    <section id="trajectory" class="section wrap">
+    <!-- 05 / ACADEMIA -->
+    <section id="academia" class="section wrap">
         <div class="grid-layout">
             <div class="sticky-sidebar">
-                <span class="section-num mono">— 05 / TRAJECTORY</span>
-                <h2 class="section-title">Service & <em>Academia.</em></h2>
+                <span class="section-num mono">— 05 / ACADEMIA</span>
+                <h2 class="section-title">Educational <em>Background.</em></h2>
             </div>
             
             <div class="timeline">
@@ -646,16 +652,30 @@
                         <span class="mono text-muted">May 2027 (Expected)</span>
                     </div>
                     <div class="timeline-org">Ahsanullah University of Science and Technology (AUST)</div>
-                    <p class="timeline-desc">Final-year thesis commencing July 2026; expected focus in computational fluid dynamics or fluid–structure interaction.</p>
+                    <p class="timeline-desc">Final-year thesis currently underway; primary focus in computational fluid dynamics and multiphase interfacial instabilities.</p>
                 </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- 06 / SERVICE -->
+    <section id="service" class="section wrap" style="padding-top: 2rem;">
+        <div class="grid-layout">
+            <div class="sticky-sidebar">
+                <span class="section-num mono">— 06 / SERVICE</span>
+                <h2 class="section-title">Leadership & <em>Initiatives.</em></h2>
+            </div>
+            
+            <div class="timeline">
                 <div class="timeline-item reveal">
                     <div class="timeline-header">
                         <span class="timeline-role">Co-Founder</span>
                         <span class="mono text-muted">Sep 2025 – Present</span>
                     </div>
-                    <div class="timeline-org">AUST Applied Modelling and Simulation Lab (AASML)</div>
-                    <p class="timeline-desc">Co-founded the first student-driven computational research hub at AUST. Initiating CFD-based research and mentoring junior students in ANSYS workflows.</p>
+                    <div class="timeline-org">
+                        <a href="https://www.aasmlab.org/" target="_blank">AUST Applied Modelling and Simulation Lab (AASML)</a>
+                    </div>
+                    <p class="timeline-desc">Co-founded the first student-driven computational research hub at AUST. Organising workshops and webinars to boost a culture of computational research at the university. As I continue to learn, I actively share my knowledge and guide junior students in foundational CFD concepts.</p>
                 </div>
 
                 <div class="timeline-item reveal">
@@ -670,9 +690,9 @@
         </div>
     </section>
 
-    <!-- 06 / CONTACT FOOTER -->
+    <!-- 07 / CONTACT FOOTER -->
     <footer id="contact" class="footer wrap">
-        <span class="section-num mono" style="margin-bottom:2rem; display:block;">— 06 / NEXT STEPS</span>
+        <span class="section-num mono" style="margin-bottom:2rem; display:block;">— 07 / NEXT STEPS</span>
         <h2 class="reveal">Let's solve the next <em>boundary value.</em></h2>
         
         <div class="contact-links reveal">
@@ -681,6 +701,9 @@
             </a>
             <a href="https://linkedin.com/in/prithuldas" target="_blank" class="btn-brutal">
                 <i class="fab fa-linkedin-in"></i> LinkedIn
+            </a>
+            <a href="https://www.researchgate.net/profile/Prithul-Das?ev=hdr_xprf" target="_blank" class="btn-brutal">
+                <i class="fab fa-researchgate"></i> ResearchGate
             </a>
             <a href="https://prithuldas.github.io" target="_blank" class="btn-brutal">
                 <i class="fas fa-globe"></i> Website
