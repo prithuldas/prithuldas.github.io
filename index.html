@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Academic portfolio of Prithul Das — Mechanical Engineering researcher specialising in CFD, hypersonic aerothermodynamics, and fluid–structure interaction.">
+    <meta name="description" content="Academic portfolio of Prithul Das — Mechanical Engineering researcher specialising in CFD of high-speed flows: shock-driven mixing, Richtmyer–Meshkov and Rayleigh–Taylor instabilities, and hypersonic aerothermodynamics.">
     <title>Prithul Das | Aerothermodynamics & CFD</title>
 
     <!-- Google Fonts -->
@@ -298,6 +298,52 @@
             padding: 0.2rem 0.6rem; border-radius: 2px; font-weight: 600;
         }
 
+        /* ─── RESULTS VIEWER ────────────────────────────────────────── */
+        .viewer { margin: 2rem 0 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+        .viewer-controls { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; margin-bottom: 1rem; }
+        .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
+        .seg button {
+            font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.03em;
+            padding: 0.45rem 0.8rem; border: 0; border-right: 1px solid var(--line);
+            background: var(--bg-surface); color: var(--text-muted); cursor: pointer; transition: 0.2s;
+        }
+        .seg button:last-child { border-right: 0; }
+        .seg button:hover { color: var(--text-main); }
+        .seg button[aria-pressed="true"] { background: var(--accent-flow); color: #fff; }
+        .viewer-stage { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+        @media (min-width: 700px) { .viewer-stage { grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); } }
+        .viewer-main { margin: 0; }
+        .viewer-main img, .viewer-side img, .thumb-strip img, .single-fig img {
+            width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 3px;
+            background: #f1f1ec; cursor: zoom-in;
+        }
+        .viewer-main img { aspect-ratio: 16 / 9; object-fit: contain; }
+        .viewer-main figcaption, .single-fig figcaption { margin-top: 0.5rem; color: var(--text-muted); text-transform: none; font-size: 0.72rem; }
+        .viewer-side img { aspect-ratio: 1 / 1; object-fit: contain; background: #fff; }
+        .viewer-stats { margin-top: 0.75rem; display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 0.75rem; font-size: 0.85rem; }
+        .viewer-stats dt { color: var(--text-muted); }
+        .viewer-stats dd { font-family: var(--font-mono); font-size: 0.8rem; text-align: right; }
+        .viewer-stats .up { color: var(--accent-heat); }
+        .viewer-stats .down { color: var(--accent-flow); }
+        .contour-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 2rem 0 0; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+        @media (min-width: 700px) { .contour-grid { grid-template-columns: 1fr 1fr; } }
+        .contour-grid figure { margin: 0; }
+        .contour-grid img { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 3px; background: #f1f1ec; cursor: zoom-in; }
+        .contour-grid figcaption { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.4rem; }
+        .viewer-note { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.75rem; }
+        .thumb-strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.75rem; margin-top: 1.25rem; }
+        .thumb-strip figure { margin: 0; }
+        .thumb-strip img { aspect-ratio: 4 / 3; object-fit: cover; }
+        .thumb-strip figcaption { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.35rem; }
+        .single-fig { margin: 0.5rem 0 1rem; }
+        .img-missing { display: none !important; }
+        .lightbox {
+            position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center;
+            background: rgba(24, 24, 27, 0.88); padding: 2rem; cursor: zoom-out;
+        }
+        .lightbox.open { display: flex; }
+        .lightbox img { max-width: 100%; max-height: 100%; border-radius: 3px; background: #fff; }
+
         /* ─── PUBLICATIONS ────────────────────────────────────────── */
         .pub-item {
             display: grid;
@@ -387,8 +433,9 @@
                 <a href="#profile">01 / Profile</a>
                 <a href="#lab">02 / Lab Output</a>
                 <a href="#publications">03 / Publications</a>
-                <a href="#academia">04 / Academia</a>
-                <a href="#service">05 / Service</a>
+                <a href="#toolchain">04 / Toolchain</a>
+                <a href="#academia">05 / Academia</a>
+                <a href="#service">06 / Service</a>
                 <a href="#contact">Contact</a>
             </div>
         </div>
@@ -402,8 +449,8 @@
         <!-- Live HUD Overlays (Updated for External Aerodynamics context) -->
         <div class="sim-ui top-left reveal">
             [SYS_READY]<br>
-            DOMAIN: EXTERNAL_AERO<br>
-            SOLVER: pimpleFoam / DES
+            DOMAIN: COMPRESSIBLE_FLOW<br>
+            SOLVER: rhoCentralFoam
         </div>
         <div class="sim-ui bottom-right reveal">
             ITER: <span id="iter-count" style="color:var(--text-main);">0000</span><br>
@@ -438,7 +485,7 @@
             <div class="hero-tags reveal" style="transition-delay: 0.2s;">
                 <span class="tag">Computational Fluid Dynamics</span>
                 <span class="tag">Hypersonic Aerothermodynamics</span>
-                <span class="tag">Multiphase Instabilities (RTI & RMI)</span>
+                <span class="tag">Interfacial Instabilities (RTI & RMI)</span>
             </div>
         </div>
     </section>
@@ -448,17 +495,17 @@
         <div class="grid-layout">
             <div class="sticky-sidebar">
                 <span class="section-num mono">— 01 / PROFILE</span>
-                <h2 class="section-title">Where heat, flow, and structures <em>collide.</em></h2>
+                <h2 class="section-title">Where heat, flow, and shocks <em>collide.</em></h2>
             </div>
             <div class="profile-content reveal">
                 <p>
-                    I am a final-year undergraduate in Mechanical Engineering at AUST, Bangladesh, where I work at the intersection of high-speed flow physics and computational methods. My research focuses on problems where aerodynamics, heat transfer, and multiphase mixing are inextricably coupled.
+                    I am a final-year undergraduate in Mechanical Engineering at AUST, Bangladesh, where I work at the intersection of high-speed flow physics and computational methods. My research focuses on problems where aerodynamics, heat transfer, and mixing are coupled.
                 </p>
                 <p>
                     I co-founded the <strong>AUST Applied Modelling and Simulation Lab (AASML)</strong>, the first student-led computational research hub at my institution, to build a culture of simulation-based inquiry. Under faculty advisement, we mentor junior students in foundational CFD workflows and mesh generation.
                 </p>
                 <p>
-                    Alongside commercial solvers, I am developing competencies in OpenFOAM, with a growing fascination for multiphase interfacial phenomena such as Rayleigh-Taylor (RTI) and Richtmyer-Meshkov (RMI) instabilities. I am continually advancing my expertise in custom numerical tools, and my long-term trajectory points toward a PhD in fluid dynamics or thermal systems.
+                    Alongside commercial solvers, I am developing competencies in OpenFOAM, and my undergraduate thesis studies Richtmyer–Meshkov (RMI) driven mixing in supersonic flows. I am applying for PhD positions starting Fall 2027 in shock-driven mixing, interfacial instabilities, and hypersonic aerothermodynamics.
                 </p>
                 
                 <div class="img-container">
@@ -488,9 +535,8 @@
                     <h3 class="proj-title">Geometry-Agnostic Computational Framework for Instability-Driven Mixing in Supersonic Flows</h3>
                     <div class="proj-affil">Dept. of Mechanical and Production Engineering, AUST &nbsp;·&nbsp; Supervisor: <a href="https://www.aust.edu/mpe/faculty_member/dr_fazlar_rahman" target="_blank">Prof. Dr. Fazlar Rahman</a></div>
                     <ul class="proj-bullets">
-                        <li>Developing a novel computational framework in <strong>OpenFOAM</strong> to evaluate passive fuel-air mixing enhancement in scramjet combustion regimes driven by Richtmyer-Meshkov Instability (RMI).</li>
-                        <li>Parametrically investigating interfacial instability growth rates and baroclinic vorticity generation across varying kinematic and thermodynamic initial conditions.</li>
-                        <li><span class="text-muted"><i class="fas fa-lock" style="font-size:0.85em; margin-right:0.3rem;"></i> <em>Methodology, parametric matrices, and numerical configurations are currently under embargo pending academic publication.</em></span></li>
+                        <li>Building an <strong>OpenFOAM</strong> framework to study passive fuel–air mixing driven by the Richtmyer–Meshkov instability (RMI) under scramjet-relevant conditions.</li>
+                        <li>Varying Mach number and Atwood number to measure interface growth rate, baroclinic vorticity deposition, and mixing-layer development.</li>
                     </ul>
                     <div class="proj-collab mono">
                         Target: Reproducible Open-Source Computational Framework
@@ -522,15 +568,25 @@
                         <span class="text-heat">HYPERSONIC REGIME</span>
                         <span>2025 – Present</span>
                     </div>
-                    <h3 class="proj-title">Aerothermodynamic Analysis of a Modified Re-entry Vehicle Heat Shield</h3>
+                    <h3 class="proj-title">Sinusoidal Heat-Shield Profiles on the Orion Re-entry Vehicle</h3>
                     <div class="proj-affil">AUST Applied Modelling and Simulation Lab (AASML)</div>
                     <ul class="proj-bullets">
-                        <li>Conducting hypersonic flow analysis at Mach 3, 6, and 7 on a modified Orion capsule with a parametric sinusoidal heat-shield geometry.</li>
-                        <li>Executing a 3×4 full-factorial case matrix to characterise the effects of forward-facing concavities on drag coefficient (Cd) and mean shock standoff distance.</li>
-                        <li>Validated a corrected Cd ≈ 1.44 at Mach 6 against baseline configurations.</li>
+                        <li>Density-based RANS (SST <em>k</em>–ω, ANSYS Fluent) at Mach 6 and zero incidence: four sinusoidal heat shields (60&nbsp;mm amplitude, 1–4 waves) against the smooth baseline, extending Juhany et al. (2024).</li>
+                        <li>Validated against wind-tunnel drag data (Murphy et al.) and published shock standoff distances (mean deviation 6.73%).</li>
+                        <li>The wavy shields moved the bow shock 29–50% upstream, raised C<sub>D</sub> by 4–17%, and lowered the shield-averaged heat flux by 7–21% at a 300&nbsp;K wall.</li>
                     </ul>
+
+                    <!-- SELECTED CONTOURS: baseline vs. one wavy shield -->
+                    <div class="contour-grid">
+                        <figure><img data-src="baseline_p" alt="Static pressure contour, smooth baseline heat shield" data-zoom><figcaption>Baseline · static pressure</figcaption></figure>
+                        <figure><img data-src="w9_p" alt="Static pressure contour, sinusoidal heat shield W9" data-zoom><figcaption>Sinusoidal shield (W9) · static pressure</figcaption></figure>
+                        <figure><img data-src="baseline_t" alt="Static temperature contour, smooth baseline heat shield" data-zoom><figcaption>Baseline · static temperature</figcaption></figure>
+                        <figure><img data-src="w9_T" alt="Static temperature contour, sinusoidal heat shield W9" data-zoom><figcaption>Sinusoidal shield (W9) · static temperature</figcaption></figure>
+                    </div>
+                    <p class="viewer-note">Mid-plane contours at M<sub>∞</sub>&nbsp;=&nbsp;6. Click any image to enlarge.</p>
+
                     <div class="proj-collab mono">
-                        <a href="https://www.aasmlab.org/research/research-groups/nextgen-energy-systems-group/atmospheric-re-entry-vehicle" target="_blank">View Project on AASML <i class="fas fa-arrow-right"></i></a> &nbsp;|&nbsp; Target: Aerospace Science and Technology (Q1)
+                        <a href="https://www.aasmlab.org/research/research-groups/nextgen-energy-systems-group/atmospheric-re-entry-vehicle" target="_blank">View Project on AASML <i class="fas fa-arrow-right"></i></a> &nbsp;|&nbsp; Conference paper under review; journal version in preparation
                     </div>
                 </div>
 
@@ -543,9 +599,14 @@
                     <h3 class="proj-title">Dynamic Modelling of a District Cooling System (DCS)</h3>
                     <div class="proj-affil">Dept. of Mechanical and Production Engineering, AUST &nbsp;·&nbsp; Supervisor: <a href="https://www.aust.edu/mpe/faculty_member/dr_dewan_hasan_ahmed" target="_blank">Prof. Dr. Dewan Hasan Ahmed</a></div>
                     <ul class="proj-bullets">
-                        <li>Developing a component-level dynamic simulation in OpenModelica to analyze performance and energy optimization.</li>
-                        <li>Modelling chillers, distribution networks, and end-user thermal loads for large-scale cooling infrastructure.</li>
+                        <li>Rebuilt a published Shanghai district cooling plant in OpenModelica, replacing its variable-level store with a temperature-resolved stratified tank (Modelica <em>Buildings</em> library).</li>
+                        <li>Reproduced the published storage inventory within 0.25% and showed that only about 17% of the 80,000&nbsp;m³ store takes part in the daily cycle.</li>
                     </ul>
+                    <figure class="single-fig">
+                        <img data-src="DCS01" alt="District cooling system model and results" data-zoom>
+                        <!-- EDIT THIS CAPTION to describe what DCS01 shows -->
+                        <figcaption class="mono">District cooling system: OpenModelica model and results</figcaption>
+                    </figure>
                 </div>
 
             </div>
@@ -557,12 +618,32 @@
         <div class="grid-layout">
             <div class="sticky-sidebar">
                 <span class="section-num mono">— 03 / LITERATURE</span>
-                <h2 class="section-title">Published <em>work.</em></h2>
+                <h2 class="section-title">Papers &amp; <em>presentations.</em></h2>
             </div>
             
             <div class="publications-list">
                 
-                <h4 class="mono text-muted" style="margin-bottom: 1.5rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem;">Conference Proceedings</h4>
+                <h4 class="mono text-muted" style="margin-bottom: 1.5rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem;">Under Review</h4>
+
+                <div class="pub-item reveal">
+                    <div class="pub-year mono text-heat">2026</div>
+                    <div>
+                        <h3 class="pub-title">Effects of a Parametric Sinusoidal Heat-Shield Profile on the Aerodynamic and Aerothermodynamic Characteristics of the Orion Reentry Vehicle</h3>
+                        <p class="pub-authors">Prithul Das, Ananya Jahan Chowdhury, Abdur Rahman Alif, Mahir Labib Chowdhury, Nowroze Farhan Ifraj</p>
+                        <p class="pub-venue">Submitted to BSME-ICTE 2026 — BUET, Dhaka</p>
+                    </div>
+                </div>
+
+                <div class="pub-item reveal">
+                    <div class="pub-year mono text-heat">2026</div>
+                    <div>
+                        <h3 class="pub-title">Effect of Temperature-Resolved Sizing of Chilled-Water Storage in a District Cooling System</h3>
+                        <p class="pub-authors">Prithul Das, Mohammad Nafis Irfan, Taskinur Rahman, Hasibuzzaman Mahmud, Dewan Hasan Ahmed</p>
+                        <p class="pub-venue">Submitted to BSME-ICTE 2026 — BUET, Dhaka</p>
+                    </div>
+                </div>
+
+                <h4 class="mono text-muted" style="margin-top: 4rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem;">Conference Presentations</h4>
                 
                 <div class="pub-item reveal">
                     <div class="pub-year mono">July 2025</div>
@@ -579,16 +660,6 @@
                         <h3 class="pub-title">Experimental Performance Evaluation of an Earth Tunnel Heat Exchanger (ETHX) System for Space Cooling and Heating</h3>
                         <p class="pub-authors">Prithul Das, ASM Toufiq Imam, A.F.M. Fahmidur Rahman, et al.</p>
                         <p class="pub-venue">APMEE 2025 — IEB, Dhaka</p>
-                    </div>
-                </div>
-
-                <h4 class="mono text-muted" style="margin-top: 4rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--line); padding-bottom: 0.5rem;">Manuscripts in Progress</h4>
-
-                <div class="pub-item reveal">
-                    <div class="pub-year mono text-heat">In Prog.</div>
-                    <div>
-                        <h3 class="pub-title">Aerothermodynamic Analysis of a Modified Orion Capsule Heat Shield with Parametric Sinusoidal Geometry in Hypersonic Flow</h3>
-                        <p class="pub-authors">Prithul Das et al.</p>
                     </div>
                 </div>
 
@@ -652,7 +723,7 @@
                         <span class="mono text-muted">May 2027 (Expected)</span>
                     </div>
                     <div class="timeline-org">Ahsanullah University of Science and Technology (AUST)</div>
-                    <p class="timeline-desc">Final-year thesis currently underway; primary focus in computational fluid dynamics and multiphase interfacial instabilities.</p>
+                    <p class="timeline-desc">Final-year thesis currently underway; primary focus in computational fluid dynamics and shock-driven interfacial instabilities.</p>
                 </div>
             </div>
         </div>
@@ -696,7 +767,7 @@
         <h2 class="reveal">Let's solve the next <em>boundary value.</em></h2>
         
         <div class="contact-links reveal">
-            <a href="mailto:prithul.me.20220208087@aust.edu" class="btn-brutal">
+            <a href="mailto:prithuldas25@gmail.com" class="btn-brutal">
                 <i class="fas fa-envelope"></i> Email
             </a>
             <a href="https://linkedin.com/in/prithuldas" target="_blank" class="btn-brutal">
@@ -715,8 +786,35 @@
         </div>
     </footer>
 
+    <div class="lightbox" id="lightbox" role="dialog" aria-label="Enlarged figure"><img alt=""></div>
+
     <!-- INTERACTIVITY SCRIPTS -->
     <script>
+        // --- IMAGE LOADER: images sit next to index.html; tries .png, then .jpg, then .jpeg ---
+        const EXTS = ['.png', '.jpg', '.jpeg'];
+        function loadImg(el, name) {
+            el.classList.remove('img-missing');
+            let i = 0;
+            el.onerror = () => {
+                i++;
+                if (i < EXTS.length) { el.src = encodeURI(name + EXTS[i]); }
+                else { el.onerror = null; el.classList.add('img-missing'); }
+            };
+            el.src = encodeURI(name + EXTS[0]);
+        }
+        document.querySelectorAll('img[data-src]').forEach(el => loadImg(el, el.dataset.src));
+
+        // --- LIGHTBOX ---
+        const lb = document.getElementById('lightbox');
+        document.addEventListener('click', e => {
+            const t = e.target;
+            if (t.matches && t.matches('img[data-zoom]') && t.src) {
+                lb.querySelector('img').src = t.src; lb.querySelector('img').alt = t.alt;
+                lb.classList.add('open');
+            } else if (lb.contains(t)) { lb.classList.remove('open'); }
+        });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('open'); });
+
         // --- SCROLL REVEAL ANIMATION ---
         const revealElements = document.querySelectorAll('.reveal');
         
