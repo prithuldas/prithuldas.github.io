@@ -221,11 +221,10 @@
         <li>The validated case setup will be released as open source with the thesis.</li>
       </ul>
       <figure class="single-fig video-fig">
-        <video src="rmi_rho(singlemode).mp4" muted loop playsinline controls preload="metadata"
+        <video id="rmi-video" src="rmi_rho%20(singlemode).mp4" muted loop playsinline controls preload="metadata"
                aria-label="Simulation of single-mode Richtmyer–Meshkov instability: density field as a shock passes a perturbed interface"></video>
         <figcaption>Single-mode Richtmyer–Meshkov instability, density field (OpenFOAM)</figcaption>
       </figure>
-
     </article>
 
     <article class="project">
@@ -355,6 +354,16 @@
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
       new IntersectionObserver(([e]) => { e.isIntersecting ? vid.play().catch(() => {}) : vid.pause(); },
                                { threshold: 0.5 }).observe(vid);
+    }
+  }
+
+  // RMI video: same behaviour as the RTI video.
+  const rmiVid = document.getElementById('rmi-video');
+  if (rmiVid) {
+    rmiVid.addEventListener('error', () => rmiVid.closest('figure').classList.add('img-missing'));
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => { e.isIntersecting ? rmiVid.play().catch(() => {}) : rmiVid.pause(); },
+                               { threshold: 0.5 }).observe(rmiVid);
     }
   }
 
